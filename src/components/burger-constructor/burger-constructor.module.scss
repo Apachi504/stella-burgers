@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 100px;
+    max-height: calc(100vh - 130px);
+}
+.content{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    overflow-y: auto;
+}
+.group{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+.submit{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 40px;
+}
+.total{
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+   &__price{
+       composes: text text_type_digits-medium from global;
+   }
+}
+.icon{
+    width: 36px;
+    height: 36px;
+    composes: ml-2 from global;
+}
