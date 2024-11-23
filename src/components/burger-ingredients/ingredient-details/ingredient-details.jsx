@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import Modal from '../../modal/modal'
 import {memo} from "react";
 
-const IngredientDetails = ({ burger, onClose }) => {
+const IngredientDetails = ({ burger}) => {
   return (
-    <Modal onClose={onClose} title={"Детали ингредиента"}>
       <section className={styles.card}>
-        <img src={burger.image_large} className={styles.image} />
+        <img src={burger.image_large} className={styles.image} alt={burger.name}/>
         <span className={styles.details__name}>{burger.name}</span>
         <ul className={styles.details}>
           <li className={`${styles.details__item} mr-5`}>
@@ -34,7 +33,6 @@ const IngredientDetails = ({ burger, onClose }) => {
           </li>
         </ul>
       </section>
-    </Modal>
   )
 }
 IngredientDetails.propTypes = {
@@ -46,6 +44,5 @@ IngredientDetails.propTypes = {
     fat: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
   }).isRequired,
-  onClose: PropTypes.func.isRequired
 };
 export default memo(IngredientDetails); //IngredientDetails

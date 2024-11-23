@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styles from './ingredient-group.module.scss';
-import IngredientItems from '../ingredient-items/ingredient-items';
+import IngredientItem from '../ingredient-item/ingredient-item';
 import {memo} from "react";
 
 
@@ -11,7 +11,7 @@ const IngredientGroup = ({burger, title, type, id}) => {
             <h2 className={styles.title}>{title}</h2>
             <ul className={styles.list}>
                 {burger.data && types.map((burger) => {
-                    return <IngredientItems burger={burger} key={burger._id} count={1}/>
+                    return <IngredientItem burger={burger} key={burger._id} count={1}/>
                 })}
             </ul>
         </section>

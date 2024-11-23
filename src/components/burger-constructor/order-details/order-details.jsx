@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import Modal from '../../modal/modal';
-import styles from './constructor-details.module.scss';
+import styles from './order-details.module.scss';
 import Done from '../../../img/done.png'
 
 
- const ConstructorDetails = ({onClose}) => {
+ const OrderDetails = ({onClose}) => {
   return (
-      <Modal onClose={onClose} title={null}>
+      // <Modal onClose={onClose} title={null}>
+      <>
         <div className={styles.constructor__container}>
           <span className={styles.constructor__namber}>
             034536
@@ -21,12 +22,13 @@ import Done from '../../../img/done.png'
           <span className={styles.constructor__description}>
             Дождитесь готовности на орбитальной станции
           </span>
-        </div>          
-      </Modal>
+        </div>   
+      </>       
+      // </Modal>
   );
 }
 
-ConstructorDetails.propTypes = {
+OrderDetails.propTypes = {
   onClose: PropTypes.func.isRequired
 }
-export default ConstructorDetails
+export default OrderDetails

@@ -1,23 +1,14 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  DragIcon,
-  Button,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import {DragIcon,Button,CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.scss";
-import ConstructorDetails from "./constructor-details/constructor-details.jsx";
+import OrderDetails from "./order-details/order-details.jsx";
+import { useModal } from "../../hooks/use-modal";
+import Modal from "../modal/modal.jsx";
 const BurgerConstructor = ({ burger }) => {
-  const [isOpenModal, setIsOpenModal] = React.useState(false);
-
-  function handleOpenModal() {
-    setIsOpenModal(true);
-  }
-
-  function handleCloseModal() {
-    setIsOpenModal(false);
-  }
+  const {isModalOpen, openModal, closeModal } = useModal();
+  
   return (
     <div className={styles.container}>
       <ConstructorElement
@@ -63,11 +54,13 @@ const BurgerConstructor = ({ burger }) => {
           htmlType='button'
           type='primary'
           size='large'
-          onClick={handleOpenModal}
+          onClick={openModal}
         >
           Оформить заказ
         </Button>
-        {isOpenModal && <ConstructorDetails onClose={handleCloseModal} />}
+        {isModalOpen && <Modal title={null} onClose={closeModal}>
+            <OrderDetails onClose={closeModal}/>
+        </Modal>}
       </div>
     </div>
   );
@@ -76,4 +69,4 @@ const BurgerConstructor = ({ burger }) => {
 BurgerConstructor.propTypes = {
   burger: PropTypes.object.isRequired,
 };
-export default BurgerConstructor;
+export default memo(BurgerConstructor);

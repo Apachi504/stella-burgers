@@ -3,7 +3,6 @@ import styles from './burger-ingredients.module.scss'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientGroup from './ingredient-group/ingredient-group.jsx'
 import PropTypes from 'prop-types';
-
 const BurgerIngredients = ({burger}) => {
     const [current, setCurrent] = React.useState('buns');
     const scrollIntoView = (id) => {
@@ -34,6 +33,7 @@ const BurgerIngredients = ({burger}) => {
                     <IngredientGroup burger={burger} title={"Начинки"} type={'main'} id={'main'}/>
                 </div>
             </div>
+            
         </section>
     )
 };
