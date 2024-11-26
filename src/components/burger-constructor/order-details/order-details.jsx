@@ -1,12 +1,9 @@
-import PropTypes from 'prop-types';
-import Modal from '../../modal/modal';
 import styles from './order-details.module.scss';
 import Done from '../../../img/done.png'
 
 
- const OrderDetails = ({onClose}) => {
+ const OrderDetails = () => {
   return (
-      // <Modal onClose={onClose} title={null}>
       <>
         <div className={styles.constructor__container}>
           <span className={styles.constructor__namber}>
@@ -24,11 +21,7 @@ import Done from '../../../img/done.png'
           </span>
         </div>   
       </>       
-      // </Modal>
   );
 }
 
-OrderDetails.propTypes = {
-  onClose: PropTypes.func.isRequired
-}
 export default OrderDetails

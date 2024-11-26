@@ -6,13 +6,14 @@ import styles from "./burger-constructor.module.scss";
 import OrderDetails from "./order-details/order-details.jsx";
 import { useModal } from "../../hooks/use-modal";
 import Modal from "../modal/modal.jsx";
+import { ingredientsPropTypes } from "../../utils/prop-types.js";
 const BurgerConstructor = ({ burger }) => {
-  const {isModalOpen, openModal, closeModal } = useModal();
-  
+  const { isModalOpen, openModal, closeModal } = useModal();
+
   return (
     <div className={styles.container}>
       <ConstructorElement
-        type='top'
+        type="top"
         extraClass={"ml-8"}
         isLocked={true}
         text={`${burger.data && burger.data[7].name} (верх)`}
@@ -25,11 +26,11 @@ const BurgerConstructor = ({ burger }) => {
             .filter((item) => item.type !== "bun")
             .map((el, id) => (
               <ul key={id} className={styles.group}>
-                <DragIcon type='primary' />
+                <DragIcon type="primary" />
                 <ConstructorElement
                   style={{ width: "100%" }}
                   key={id}
-                  type='main'
+                  type="main"
                   text={el.name}
                   price={el.price}
                   thumbnail={el.image}
@@ -38,7 +39,7 @@ const BurgerConstructor = ({ burger }) => {
             ))}
       </span>
       <ConstructorElement
-        type='bottom'
+        type="bottom"
         extraClass={"ml-8"}
         isLocked={true}
         text={`${burger.data && burger.data[7].name} (низ)`}
@@ -48,25 +49,22 @@ const BurgerConstructor = ({ burger }) => {
       <div className={styles.submit}>
         <div className={styles.total}>
           <p className={styles.total__price}>650</p>
-          <CurrencyIcon type='primary' className={styles.icon} />
+          <CurrencyIcon type="primary" className={styles.icon} />
         </div>
-        <Button
-          htmlType='button'
-          type='primary'
-          size='large'
-          onClick={openModal}
-        >
+        <Button htmlType="button" type="primary" size="large" onClick={openModal}>
           Оформить заказ
         </Button>
-        {isModalOpen && <Modal title={null} onClose={closeModal}>
-            <OrderDetails onClose={closeModal}/>
-        </Modal>}
+        {isModalOpen && (
+          <Modal title={null} onClose={closeModal}>
+            <OrderDetails/>
+          </Modal>
+        )}
       </div>
     </div>
   );
 };
 
 BurgerConstructor.propTypes = {
-  burger: PropTypes.object.isRequired,
+  burger: PropTypes.shape(ingredientsPropTypes).isRequired,
 };
 export default memo(BurgerConstructor);
