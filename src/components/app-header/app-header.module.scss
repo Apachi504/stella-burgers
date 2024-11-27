@@ -1,0 +1,40 @@
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.header {
+  background-color: #1c1c21;
+  width: 100 wh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  composes: pt-4 pb-4 from global;
+
+  &__list {
+    display: flex;
+  }
+  &__link {
+    composes: text text_type_main-default ml-2 from global;
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    composes: pt-5 pb-5 pr-5 from global;
+  }
+  &__center {
+    margin-left: -150px;
+  }
+}
+.active{
+  composes:text text_color_primary from global;
+}
+.inactive{
+  composes:text text_color_inactive from global;
+}

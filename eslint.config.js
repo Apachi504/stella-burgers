@@ -16,6 +16,7 @@ export default [
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
+      linterOptions: {reportUnusedDisableDirectives: false},
     },
     settings: { react: { version: '18.3' } },
     plugins: {
