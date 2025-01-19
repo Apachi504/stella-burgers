@@ -5,36 +5,46 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.scss";
 import PropTypes from "prop-types";
-import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-import { useModal } from "../../../hooks/use-modal";
-import Modal from "../../modal/modal.jsx";
 import { ingredientsPropTypes } from "../../../utils/prop-types";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  setIngredientDetails
+} from "../../../services/ingredient-details/ingredient-details-slice.js";
+import {useDrag} from "react-dnd";
 
-const IngredientItem = ({ count, burger }) => {
-  const { isModalOpen, openModal, closeModal } = useModal();
+const IngredientItem = ({  ingredient, openModal}) => {
+  const burgerIngredients = useSelector(state => state.burgerConstructor);
+  const dispatch = useDispatch();
+const modal = ()=>{
+    dispatch(setIngredientDetails(ingredient));
+    openModal();
+}
+const [, dragRef] = useDrag({
+  type: ingredient.type === "bun" ? "bun" : "stuffing",
+  item: ingredient
+})
+  const count = ingredient.type === "bun"
+    ? (burgerIngredients.bun?._id === ingredient._id ? 2 : 0)
+    : burgerIngredients.ingredients.reduce((acc, el) => el._id === ingredient._id ? acc + 1 : acc, 0);
 
   return (
     <>
-      <li className={styles.item} onClick={openModal}>
+      <li className={styles.item} onClick={modal} ref={dragRef} draggable>
         <span className={styles.img}>
-          <img src={burger.image} alt={burger.name} />
-          <Counter count={count} size="default" extraClass="m-1" />
+          <img src={ingredient.image} alt={ingredient.name} />
+          {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
         </span>
         <span className={styles.total}>
-          <p className={styles.price}>{burger.price}</p>
+          <p className={styles.price}>{ingredient.price}</p>
           <CurrencyIcon type="primary" />
         </span>
-        <p className={styles.name}>{burger.name}</p>
+        <p className={styles.name}>{ingredient.name}</p>
       </li>
-      {isModalOpen && (
-        <Modal onClose={closeModal} title={"Детали ингредиента"}>
-          <IngredientDetails burger={burger} />
-        </Modal>
-      )}
     </>
   );
 };
 IngredientItem.propTypes = {
-  burger: PropTypes.shape(ingredientsPropTypes).isRequired,
+  ingredient:ingredientsPropTypes,
+  openModal: PropTypes.func
 };
 export default memo(IngredientItem);

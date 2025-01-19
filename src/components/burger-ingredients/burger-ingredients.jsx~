@@ -52,7 +52,7 @@ const BurgerIngredients = ({openModal}) => {
                         Соусы
                     </Tab>
                 </div>
-                <div className={`${styles.container} custom-scroll`}>
+                <div className={styles.container}>
                     <IngredientGroup
                         title={"Булки"}
                         type={"bun"}

@@ -1,13 +1,16 @@
 import styles from './order-details.module.scss';
 import Done from '../../../img/done.png'
+import {useSelector} from "react-redux";
+import {getOrderNumber} from "../../../services/order/order-slice.js";
 
 
  const OrderDetails = () => {
+    const orderNumber = useSelector(getOrderNumber);
   return (
       <>
         <div className={styles.constructor__container}>
           <span className={styles.constructor__namber}>
-            034536
+           {orderNumber}
             </span>
           <span className={styles.constructor__title}>
             идентификатор заказа
