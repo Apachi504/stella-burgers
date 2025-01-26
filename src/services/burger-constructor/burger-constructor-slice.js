@@ -1,14 +1,15 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSelector, createSlice} from "@reduxjs/toolkit";
 import {v6} from 'uuid';
 
-const initialState ={
+const initialState = {
     bun: null,
     ingredients: []
 }
+
 const burgerConstructorSlice = createSlice({
     name: 'burgerConstructor',
     initialState,
-    reducers:{
+    reducers: {
         addBun: {
             prepare: (bun) => {
                 return {
@@ -23,7 +24,7 @@ const burgerConstructorSlice = createSlice({
             }
         },
         addIngredient: {
-            prepare :(ingredient) => {
+            prepare: (ingredient) => {
                 return {
                     payload: {
                         ...ingredient,
@@ -59,4 +60,10 @@ const burgerConstructorSlice = createSlice({
 
 })
 export default burgerConstructorSlice.reducer;
-export const {addBun, addIngredient, removeIngredient, sortIngredients, resetConstructor} = burgerConstructorSlice.actions;
+export const {
+    addBun,
+    addIngredient,
+    removeIngredient,
+    sortIngredients,
+    resetConstructor
+} = burgerConstructorSlice.actions;

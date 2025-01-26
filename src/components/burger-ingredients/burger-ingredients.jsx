@@ -15,7 +15,7 @@ const BurgerIngredients = ({openModal}) => {
         if (inViewBuns) {
             setCurrent("buns");
         } else if (inViewMain) {
-          setCurrent("main");
+            setCurrent("main");
         } else if (inViewSauces) {
             setCurrent("sauces");
         }
@@ -69,11 +69,11 @@ const BurgerIngredients = ({openModal}) => {
                         openModal={openModal}
                     />
                     <IngredientGroup
-                    title={"Соусы"}
-                    type={"sauce"}
-                    id={"sauces"}
-                    ref={refSauces}
-                    openModal={openModal}
+                        title={"Соусы"}
+                        type={"sauce"}
+                        id={"sauces"}
+                        ref={refSauces}
+                        openModal={openModal}
                     />
                 </div>
             </div>
@@ -83,7 +83,6 @@ const BurgerIngredients = ({openModal}) => {
 };
 
 BurgerIngredients.propTypes = {
-    burger: ingredientsPropTypes,
     openModal: PropTypes.func
 };
 export default memo(BurgerIngredients);

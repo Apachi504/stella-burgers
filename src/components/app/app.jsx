@@ -12,6 +12,13 @@ import Modal from "../modal/modal.jsx";
 import {getIngredientDetails} from "../../services/ingredient-details/ingredient-details-slice.js";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {Route, Routes} from "react-router-dom";
+import {Home} from "../../pages/home/home.jsx";
+import Login from "../../pages/login/login.jsx";
+import Register from "../../pages/register/register.jsx";
+import ForgotPassword from "../../pages/forgot-password/forgot-password.jsx";
+import ResetPassword from "../../pages/reset-password/reset-password.jsx";
+
 
 
 function App() {
@@ -20,21 +27,13 @@ function App() {
 
     const dispatch = useDispatch();
     const {burgerIngredientsLoading, burgerIngredientsError} = useSelector((state) => state.burgerIngredients);
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
             dispatch(getIngredients());
     }, []);
-    useEffect(() => {
-        setLoading(!burgerIngredientsLoading);
-        return () => {
-            setTimeout(() => {
-                setLoading(burgerIngredientsLoading);
-            },2000)
-        }
-    }, [setLoading]);
+
     {
-        if (loading) {
-            return <Loader/>;
+        if (burgerIngredientsLoading) {
+            return <Loader />;
         }
     }
     if (burgerIngredientsError) {
@@ -44,13 +43,16 @@ function App() {
     return (
 
         <>
-            <AppHeader/>
-            <DndProvider backend={HTML5Backend}>
-            <main className={styles.container}>
-                <BurgerIngredients openModal={openModal}/>
-                <BurgerConstructor/>
-            </main>
-            </DndProvider>
+        <AppHeader/>
+            <div>
+                <Routes>
+                    <Route path="/" element={<Home openModal={openModal}/>} />
+                    <Route path="/profile/login" element={<Login />} />
+                    <Route path="/profile/login/register" element={<Register />} />
+                    <Route path="/profile/login/forgot-password-1" element={<ForgotPassword />} />
+                    <Route path="/profile/login/forgot-password-2" element={<ResetPassword />} />
+                </Routes>
+            </div>
             {isModalOpen &&
                 <Modal onClose={closeModal} title={"Детали ингредиента"}>
                     <IngredientDetails {...ingredientDetails}/>

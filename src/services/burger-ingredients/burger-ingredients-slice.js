@@ -3,8 +3,9 @@ import {getBurgerIngredients} from "../../utils/api.js";
 
 export const getIngredients = createAsyncThunk(
     'burgerIngredients/getIngredients',
-    async (_,thunkAPI) => {
-     return getBurgerIngredients();
+    async () => {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        return getBurgerIngredients();
     }
 );
 const initialState = {
@@ -17,9 +18,6 @@ export const burgerIngredientsSlice = createSlice({
     initialState,
     selectors:{
         getAllIngredients: (state) => state.burgerIngredients,
-    },
-    reducers:{
-        setBurgerIngredientsLoading: (state,action) => {state.burgerIngredientsLoading = action.payload},
     },
     extraReducers: (builder) => {
         builder
@@ -44,4 +42,3 @@ export const burgerIngredientsSlice = createSlice({
 })
 export default burgerIngredientsSlice.reducer;
 export const {getAllIngredients} = burgerIngredientsSlice.selectors;
-export const {setBurgerIngredientsLoading} = burgerIngredientsSlice.actions;
