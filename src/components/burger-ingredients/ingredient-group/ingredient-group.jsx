@@ -6,6 +6,7 @@ import {ingredientsPropTypes} from "../../../utils/prop-types";
 import {useSelector} from "react-redux";
 import {getAllIngredients} from "../../../services/burger-ingredients/burger-ingredients-slice.js";
 import React from "react";
+import {Link} from "react-router-dom";
 
 const IngredientGroup = React.forwardRef(({title, type, id,openModal},ref)=> {
     const burgerIngredients = useSelector(getAllIngredients);

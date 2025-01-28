@@ -2,32 +2,32 @@ import styles from "./ingredient-details.module.scss";
 import PropTypes from "prop-types";
 import { memo } from "react";
 import { ingredientsPropTypes } from "../../../utils/prop-types";
+import {useParams} from "react-router";
 
-const IngredientDetails = ({src,name,calories,proteins,fat,carbohydrates}) => {
-
+const IngredientDetails = ({ingredient}) => {
   return (
     <section className={styles.card}>
       <img
-        src={src}
-        alt={name}
+        src={ingredient.image_large}
+        alt={ingredient.name}
       />
-      <span className={styles.details__name}>{name}</span>
+      <span className={styles.details__name}>{ingredient.name}</span>
       <ul className={styles.details}>
         <li className={`${styles.details__item} mr-5`}>
           <span>Калории, ккал</span>
-          <span className={styles.details__value}>{calories}</span>
+          <span className={styles.details__value}>{ingredient.calories}</span>
         </li>
         <li className={`${styles.details__item} mr-5`}>
           <span>Белки, г</span>
-          <span className={styles.details__value}>{proteins}</span>
+          <span className={styles.details__value}>{ingredient.proteins}</span>
         </li>
         <li className={`${styles.details__item} mr-5`}>
           <span>Жиры, г</span>
-          <span className={styles.details__value}>{fat}</span>
+          <span className={styles.details__value}>{ingredient.fat}</span>
         </li>
         <li className={styles.details__item}>
           <span>Углеводы, г</span>
-          <span className={styles.details__value}>{carbohydrates}</span>
+          <span className={styles.details__value}>{ingredient.carbohydrates}</span>
         </li>
       </ul>
     </section>

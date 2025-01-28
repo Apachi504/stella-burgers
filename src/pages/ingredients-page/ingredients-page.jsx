@@ -3,7 +3,7 @@ import React, { useMemo} from "react";
 import IngredientDetails from "../../components/burger-ingredients/ingredient-details/ingredient-details.jsx";
 import {useSelector} from "react-redux";
 import {getAllIngredients} from "../../services/burger-ingredients/burger-ingredients-slice.js";
-import styles from "./ingredients-info.module.scss";
+import styles from "./ingredients-page.module.scss";
 export const IngredientPage = () => {
     const {id} = useParams();
     const burgerIngredients = useSelector(getAllIngredients);
@@ -14,7 +14,7 @@ export const IngredientPage = () => {
 
     return (
         ingredient && <section className={styles.container}>
-            <h2 className='text text_type_main-large mb-4'>Детали ингредиента</h2>
+            <h2 className={styles.title}>Детали ингредиента</h2>
             <IngredientDetails ingredient={ingredient}/>
         </section>
 
