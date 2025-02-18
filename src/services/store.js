@@ -3,13 +3,13 @@ import burgerIngredientsSlice from "./burger-ingredients/burger-ingredients-slic
 import ingredientDetailsSlice from "./ingredient-details/ingredient-details-slice.js";
 import burgerConstructorSlice from "./burger-constructor/burger-constructor-slice.js";
 import orderSlice from "./order/order-slice.js";
-import registerSlice from "./auth/register/register-slice.js";
+import userSlice from "./user/user-slice.js";
 const rootReducer = combineSlices({
     burgerIngredients: burgerIngredientsSlice,
     ingredientDetails: ingredientDetailsSlice,
     burgerConstructor: burgerConstructorSlice,
     order: orderSlice,
-    register: registerSlice
+    user: userSlice
 })
 export const store = configureStore({
     reducer: rootReducer

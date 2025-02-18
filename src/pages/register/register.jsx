@@ -1,9 +1,9 @@
 import styles from "../login/login.module.scss";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {registrationUser} from "../../services/auth/register/register-slice.js";
+import {registerUser} from "../../services/user/user-slice.js";
 
 function Register (){
     const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ function Register (){
     const inputRef = useRef(null);
     const dispatch = useDispatch();
     const onClick = () =>{
-        dispatch(registrationUser({email, password, name}))
+        dispatch(registerUser({email, password, name}))
     }
     return(
         <>
@@ -20,6 +20,10 @@ function Register (){
                 <p className={styles.title}>
                     Регистрация
                 </p>
+                <form
+                    className={styles.form}
+                    onSubmit={onClick}
+                >
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -50,15 +54,16 @@ function Register (){
                     name={'password'}
                     extraClass="mb-6"
                 />
-                <Button htmlType="button" type="primary" size="large" extraClass='mb-20' onClick={onClick}>
+                <Button htmlType="button" type="primary" size="large" extraClass='mb-20'>
                     Зарегистрироваться
                 </Button>
+                </form>
                 <div className={styles.registration}>
                     <div className={styles.line}>
                         <p className={styles.text}>Уже зарегистрированы?</p>
-                        <NavLink to="/profile/login" className={styles.link}>
+                        <Link to="/login" className={styles.link}>
                             Войти
-                        </NavLink>
+                        </Link>
                     </div>
                 </div>
             </div>

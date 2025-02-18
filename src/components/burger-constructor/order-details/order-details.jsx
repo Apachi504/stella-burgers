@@ -4,8 +4,8 @@ import {useSelector} from "react-redux";
 import {getOrderNumber} from "../../../services/order/order-slice.js";
 
 
- const OrderDetails = () => {
-    const orderNumber = useSelector(getOrderNumber);
+ const OrderDetails = ({orderNumber}) => {
+
   return (
       <>
         <div className={styles.constructor__container}>

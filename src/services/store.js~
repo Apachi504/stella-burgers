@@ -7,7 +7,7 @@ const rootReducer = combineSlices({
     burgerIngredients: burgerIngredientsSlice,
     ingredientDetails: ingredientDetailsSlice,
     burgerConstructor: burgerConstructorSlice,
-    order: orderSlice
+    order: orderSlice,
 })
 export const store = configureStore({
     reducer: rootReducer
