@@ -20,20 +20,34 @@ import {
     resetConstructor,
 } from "../../services/burger-constructor/burger-constructor-slice.js";
 import { DraggableWrapper } from "./draggable-wrapper/draggable-wrapper.jsx";
-import { getOrders } from "../../services/order/order-slice.js";
+import {getOrderError, getOrderLoading, getOrderNumber, getOrders} from "../../services/order/order-slice.js";
+import {totalPriceSelector} from "../../services/selectors.js";
+import {getIsAuthCheckedSelector, getUserSelector, isAuthorizedSelector} from "../../services/user/user-slice.js";
+import {useLocation, useNavigate} from "react-router-dom";
+import {TailSpin} from "react-loader-spinner";
 
 const BurgerConstructor = () => {
     const { isModalOpen, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
-    const burger = useSelector((state) => state.burgerConstructor);
-    const openModalOrder = () => {
-        if (burger.bun && burger.ingredients.length > 0) {
-            dispatch(
-                getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
-            ).then(() => dispatch(resetConstructor()));
+    const burger = useSelector((state) => state.burgerConstructor)||{bun: null, ingredients: []};
+    const totalPrice = useSelector(totalPriceSelector);
+    const isAuth = useSelector(isAuthorizedSelector);
+    const navigate = useNavigate();
+    const orderNumber = useSelector(getOrderNumber);
+    const isLoading = useSelector(getOrderLoading);
+    const location = useLocation();
+    const onCreateOrder = () => {
+            if (burger.bun && burger.ingredients.length > 0) {
+                if(isAuth){
+                dispatch(
+                    getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
+                )
+            }else {
+                    navigate('/login' , { state: {from: location}});
+                }
         }
         openModal();
-    };
+    }
     const [{ isHoveredTop }, topRef] = useDrop({
         accept: "bun",
         collect(monitor) {
@@ -67,19 +81,14 @@ const BurgerConstructor = () => {
             dispatch(addIngredient(item));
         },
     });
-    const boxShadow =
+    const boxShadowBun =
         isHoveredTop || isHoveredBottom
             ? "0px 0px 10px  2px #646cff"
-            : isHoveredCenter
-                ? "0px 0px 10px  2px #646cef"
-                : "none";
-
-    const totalPrice = useMemo(() => {
-        return burger.bun
-            ? burger.bun.price * 2 +
-            burger.ingredients.reduce((acc, el) => acc + el.price, 0)
-            : 0;
-    }, [burger]);
+            : "none";
+    const boxShadowStuffing =
+        isHoveredCenter
+            ? "0px 0px 10px  2px #646cef"
+            : "none";
 
     return (
         <div className={styles.container}>
@@ -97,7 +106,7 @@ const BurgerConstructor = () => {
                     ) : (
                         <p
                             className={`${styles.wrapper} ${styles.top}`}
-                            style={{boxShadow: boxShadow}}
+                            style={{boxShadow: boxShadowBun}}
                         >
                             Выберите булку
                         </p>
@@ -128,7 +137,7 @@ const BurgerConstructor = () => {
                     ) : (
                         <p
                             className={`${styles.wrapper} ${styles.center}`}
-                            style={{ boxShadow: boxShadow }}
+                            style={{ boxShadow: boxShadowStuffing }}
                         >
                             Выберите ингредиенты
                         </p>
@@ -147,7 +156,7 @@ const BurgerConstructor = () => {
                     ) : (
                         <p
                             className={`${styles.wrapper} ${styles.bottom}`}
-                            style={{ boxShadow: boxShadow }}
+                            style={{ boxShadow: boxShadowBun }}
                         >
                             Выберите булку
                         </p>
@@ -163,21 +172,33 @@ const BurgerConstructor = () => {
                     htmlType="button"
                     type="primary"
                     size="large"
-                    onClick={openModalOrder}
+                    onClick={onCreateOrder}
                 >
                     Оформить заказ
                 </Button>
-                {isModalOpen && (
-                    <Modal title={null} onClose={closeModal}>
-                        <OrderDetails />
-                    </Modal>
-                )}
+
             </div>
+            {   isLoading ?(
+                    <Modal title={'Офоромление заказа'} onClose={closeModal}>
+                        <TailSpin
+                            visible={true}
+                            height="80"
+                            width="80"
+                            color="#fff"
+                            ariaLabel="tail-spin-loading"
+                            radius="1"
+                            wrapperStyle={{height: '50vh',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                        />
+                    </Modal>
+                ):(
+                        isModalOpen && (
+                            <Modal title={null} onClose={closeModal}>
+                                <OrderDetails orderNumber={orderNumber}/>
+                            </Modal>
+                        )
+                    )
+            }
         </div>
     );
-};
-
-BurgerConstructor.propTypes = {
-    burger: ingredientsPropTypes,
 };
 export default memo(BurgerConstructor);

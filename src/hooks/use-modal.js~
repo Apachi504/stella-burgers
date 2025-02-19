@@ -1,0 +1,13 @@
+import React, {useState, useCallback } from 'react'
+import {useNavigate} from "react-router-dom";
+export const useModal = () => {
+    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = useCallback(() => { setIsModalOpen(true) }, []);
+    const closeModal = useCallback(() => { setIsModalOpen(false); navigate(-1)}, [navigate]);
+    return {
+        isModalOpen,
+        openModal,
+        closeModal
+    }
+}

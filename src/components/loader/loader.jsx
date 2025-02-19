@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from '../../components/loader/loader.module.scss'
 import {ThreeDots} from "react-loader-spinner";
 

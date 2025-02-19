@@ -1,0 +1,35 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 200 200"
+        width="300"
+        height="300"
+        style="background-color: #f0f0f0;"
+>
+    <!-- Background Circle -->
+    <circle cx="100" cy="100" r="90" fill="#646cff" />
+
+    <!-- Text: 404 -->
+    <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-size="48"
+            font-weight="bold"
+            fill="white"
+    >
+        404
+    </text>
+
+    <!-- Subtext: Page Not Found -->
+    <text
+            x="50%"
+            y="70%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-size="16"
+            fill="white"
+    >
+        Page Not Found
+    </text>
+</svg>

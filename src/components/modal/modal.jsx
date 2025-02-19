@@ -32,7 +32,9 @@ const Modal = ({ children, title, onClose }) => {
                 <CloseIcon type="primary" onClick={onClose} />
             </button>
         </header>
+            <div className={styles.content}>
             {children}
+            </div>
         </div>
         </>,
         modal
