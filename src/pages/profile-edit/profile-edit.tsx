@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {SyntheticEvent, useEffect, useRef, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.scss";
-import ProfileNavigation from "../../components/profile-navigation/profile-navigation.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, getUserSelector, refactoringUser} from "../../services/user/user-slice.js";
-import Loader from "../../components/loader/loader.jsx";
+import Loader from "../../components/loader/loader";
 
 function ProfileEdit() {
+    // @ts-ignore
     const {user} = useSelector(getUserSelector);
     const accessToken = localStorage.getItem('accessToken');
     const dispatch = useDispatch();
@@ -15,10 +15,11 @@ function ProfileEdit() {
         email:user?.email || '',
         password: ''
     });
-    const [updateUserError, setUpdateUserError] = useState(
+    const [updateUserError, setUpdateUserError] = useState<string|undefined>(
         undefined
     );
     useEffect(() => {
+        // @ts-ignore
         dispatch(getUser());
     }, [dispatch]);
 
@@ -37,9 +38,10 @@ function ProfileEdit() {
         formValue.email !== user?.email ||
         !!formValue.password;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
         if (isFormChanged) {
+            // @ts-ignore
             dispatch(refactoringUser({
                 name: formValue.name,
                 email: formValue.email,
@@ -51,11 +53,11 @@ function ProfileEdit() {
                     setFormValue({...formValue, password: ''});
                     setUpdateUserError(undefined);
                 })
-                .catch((err) => setUpdateUserError(err.message));
+                .catch((err: any) => setUpdateUserError(err.message));
         }
     };
 
-    const handleCancel = (e) => {
+    const handleCancel = (e: SyntheticEvent) => {
         e.preventDefault();
         setFormValue({
             name: user?.name || '',
@@ -64,7 +66,7 @@ function ProfileEdit() {
         });
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setFormValue((prevState) => ({
             ...prevState,
@@ -77,7 +79,6 @@ function ProfileEdit() {
     return (
         <>
             <main>
-                {/*<ProfileNavigation/>*/}
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Input

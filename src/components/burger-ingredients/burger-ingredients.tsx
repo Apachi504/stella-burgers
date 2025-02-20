@@ -1,12 +1,15 @@
-import React, {memo, useEffect} from "react";
+import React, {FC, memo, useEffect} from "react";
 import styles from "./burger-ingredients.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientGroup from "./ingredient-group/ingredient-group.jsx";
-import PropTypes from "prop-types";
-import {ingredientsPropTypes} from "../../utils/prop-types.js";
+import IngredientGroup from "./ingredient-group/ingredient-group.js";
 import {useInView} from "react-intersection-observer";
+import {TModal} from "../../hooks/use-modal";
 
-const BurgerIngredients = ({openModal}) => {
+interface BurgerIngredientsProps {
+    openModal?: () => void
+}
+
+const BurgerIngredients: FC = () => {
     const [current, setCurrent] = React.useState("buns");
     const [refBuns, inViewBuns] = useInView({threshold: 0.5});
     const [refSauces, inViewSauces] = useInView({threshold: 0.5});
@@ -20,9 +23,10 @@ const BurgerIngredients = ({openModal}) => {
             setCurrent("sauces");
         }
     }, [inViewBuns, inViewSauces, inViewMain]);
-    const scrollIntoView = (id) => {
+    const scrollIntoView = (id:string) => {
         setCurrent(id);
-        document.getElementById(id).scrollIntoView({behavior: "smooth"});
+        const element: HTMLElement | null = document.getElementById(id);
+        element?.scrollIntoView({behavior: "smooth"});
     };
 
     return (
@@ -58,7 +62,7 @@ const BurgerIngredients = ({openModal}) => {
                         type={"bun"}
                         id={"buns"}
                         ref={refBuns}
-                        openModal={openModal}
+
                     />
 
                     <IngredientGroup
@@ -66,14 +70,12 @@ const BurgerIngredients = ({openModal}) => {
                         type={"main"}
                         id={"main"}
                         ref={refMain}
-                        openModal={openModal}
                     />
                     <IngredientGroup
                         title={"Соусы"}
                         type={"sauce"}
                         id={"sauces"}
                         ref={refSauces}
-                        openModal={openModal}
                     />
                 </div>
             </div>
@@ -82,7 +84,4 @@ const BurgerIngredients = ({openModal}) => {
     );
 };
 
-BurgerIngredients.propTypes = {
-    openModal: PropTypes.func
-};
 export default memo(BurgerIngredients);

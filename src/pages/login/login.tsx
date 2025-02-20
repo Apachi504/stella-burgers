@@ -1,9 +1,9 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useRef, useState} from "react";
+import React, {SyntheticEvent, useRef, useState} from "react";
 import styles from './login.module.scss'
 import {Link,useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {getUser, loginUser} from "../../services/user/user-slice.js";
+import {loginUser} from "../../services/user/user-slice.js";
 function Login () {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,15 +11,15 @@ function Login () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(loginUser({email, password}))
-            .then((data) =>
-            {
+            .then(() => {
               const from = location.state?.from?.pathname || '/profile';
               navigate(from, {replace: true});
             })
-            .catch((err) => console.log(err));
+            .catch((err: any) => console.log(err));
     }
     return (
         <>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {SyntheticEvent, useEffect, useState} from "react";
 import styles from "../login/login.module.scss";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
@@ -8,7 +8,8 @@ function ResetPassword() {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
-    const onSubmit = (e) => {
+
+    const onSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
         resetPasswordApi({password, token})
             .then(() =>{

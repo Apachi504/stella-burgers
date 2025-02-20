@@ -1,0 +1,45 @@
+//{
+//  "compilerOptions": {
+//    "target": "ES2020",
+//    "useDefineForClassFields": true,
+//    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+//    "module": "ESNext",
+//    "skipLibCheck": true,
+//
+//    /* Bundler mode */
+//    "moduleResolution": "bundler",
+//    "allowImportingTsExtensions": true,
+//    "resolveJsonModule": true,
+//    "isolatedModules": true,
+//    "noEmit": true,
+//    "jsx": "react-jsx",
+//
+//    /* Linting */
+//    "strict": true,
+//    "noUnusedLocals": true,
+//    "noUnusedParameters": true,
+//    "noFallthroughCasesInSwitch": true
+//  },
+//  "include": ["src"],
+//  "references": [{ "path": "./tsconfig.node.json" }]
+//}
+{
+  "compilerOptions": {
+    "target": "ES2020", // Версия ECMAScript
+    "module": "ESNext", // Используем модули ESNext
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Подключаем библиотеки
+    "allowJs": true, // Разрешаем использование JavaScript
+    "skipLibCheck": true, // Пропускаем проверку типов в библиотеках
+    "esModuleInterop": true, // Упрощаем работу с CommonJS-модулями
+    "allowSyntheticDefaultImports": true, // Разрешаем синтетические импорты
+    "strict": true, // Включаем строгую проверку типов
+    "forceConsistentCasingInFileNames": true, // Проверяем регистр имен файлов
+    "moduleResolution": "Node", // Используем Node.js-стиль разрешения модулей
+    "resolveJsonModule": true, // Разрешаем импорт JSON
+    "isolatedModules": true, // Убеждаемся, что каждый файл — независимый модуль
+    "noEmit": true, // Отключаем генерацию файлов (Vite сам занимается сборкой)
+    "jsx": "react-jsx" // Используем JSX для React
+  },
+  "include": ["src"], // Указываем, где искать файлы TypeScript
+  "exclude": ["node_modules"] // Исключаем папку node_modules
+}

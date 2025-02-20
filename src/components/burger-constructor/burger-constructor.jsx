@@ -1,5 +1,4 @@
-import React, { memo, useMemo } from "react";
-import PropTypes from "prop-types";
+import React, { memo } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
     DragIcon,
@@ -9,20 +8,18 @@ import {
 import styles from "./burger-constructor.module.scss";
 import OrderDetails from "./order-details/order-details.jsx";
 import { useModal } from "../../hooks/use-modal";
-import Modal from "../modal/modal.jsx";
-import { ingredientsPropTypes } from "../../utils/prop-types.js";
+import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import {
     addBun,
     addIngredient,
     removeIngredient,
-    resetConstructor,
 } from "../../services/burger-constructor/burger-constructor-slice.js";
 import { DraggableWrapper } from "./draggable-wrapper/draggable-wrapper.jsx";
-import {getOrderError, getOrderLoading, getOrderNumber, getOrders} from "../../services/order/order-slice.js";
+import {getOrderLoading, getOrderNumber, getOrders} from "../../services/order/order-slice.js";
 import {totalPriceSelector} from "../../services/selectors.js";
-import {getIsAuthCheckedSelector, getUserSelector, isAuthorizedSelector} from "../../services/user/user-slice.js";
+import {isAuthorizedSelector} from "../../services/user/user-slice.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import {TailSpin} from "react-loader-spinner";
 

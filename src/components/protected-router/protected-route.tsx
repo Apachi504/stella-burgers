@@ -1,10 +1,10 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import {checkAuthUser, getIsAuthCheckedSelector, getUserSelector} from "../../services/user/user-slice.js";
-import {useEffect} from "react";
-import Loader from "../loader/loader.jsx";
+import { getIsAuthCheckedSelector, getUserSelector} from "../../services/user/user-slice.js";
+import {FC} from "react";
+import {TProtectedRoute} from "./types";
 
-export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
+export const ProtectedRoute: FC<TProtectedRoute> = ({ onlyUnAuth = false, component }) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
@@ -16,7 +16,7 @@ export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
     // Запрос еще выполняется
     // Выводим прелоадер в ПР
     // Здесь возвращается просто null для экономии времени
-    return <Loader />;
+    return <p>Loading</p>;
   }
   if (onlyUnAuth && user) {
     // если пользователь на странице авторизации и данные есть в хранилище
@@ -32,6 +32,6 @@ export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
 };
 
 export const OnlyAuth = ProtectedRoute;
-export const OnlyUnAuth = ({ component }) => (
+export const OnlyUnAuth: FC<TProtectedRoute> = ({ component }) => (
     <ProtectedRoute onlyUnAuth={true} component={component} />
 );

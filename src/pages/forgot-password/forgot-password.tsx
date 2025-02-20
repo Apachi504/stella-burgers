@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {SyntheticEvent, useRef, useState} from "react";
 import styles from "../login/login.module.scss";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
@@ -7,9 +7,9 @@ import {forgotPasswordApi} from "../../utils/api.js";
 function ForgotPassword() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<Error|null>(null);
 
-    const onClick = (e) => {
+    const onClick = (e: SyntheticEvent) => {
         e.preventDefault();
         setError(null);
         forgotPasswordApi({email})

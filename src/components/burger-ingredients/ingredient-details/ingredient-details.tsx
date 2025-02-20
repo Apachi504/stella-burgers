@@ -1,10 +1,8 @@
 import styles from "./ingredient-details.module.scss";
-import PropTypes from "prop-types";
-import { memo } from "react";
-import { ingredientsPropTypes } from "../../../utils/prop-types";
-import {useParams} from "react-router";
+import {FC, memo} from "react";
+import {TIngredientDetailsProps} from "./type";
 
-const IngredientDetails = ({ingredient}) => {
+const IngredientDetails: FC<TIngredientDetailsProps> = ({ingredient}) => {
   return (
     <section className={styles.card}>
       <img
@@ -33,12 +31,5 @@ const IngredientDetails = ({ingredient}) => {
     </section>
   );
 };
-IngredientDetails.propTypes = {
-    src: PropTypes.string,
-    name: PropTypes.string,
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-};
+
 export default memo(IngredientDetails);

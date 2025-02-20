@@ -1,18 +1,19 @@
-import {NavLink, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import styles from "./profile-navigation.module.scss";
-import ProfileEdit from "../../pages/profile-edit/profile-edit.jsx";
 import {logoutUser} from "../../services/user/user-slice.js";
 import {useDispatch} from "react-redux";
+import React from "react";
 
 function ProfileNavigation() {
     const {pathname} = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const onClickHandel = (e) => {
+    const onClickHandel = (e: React.MouseEvent) => {
         e.preventDefault();
+        //@ts-ignore
         dispatch(logoutUser())
             .then(() => navigate('/login'))
-            .catch((err)=>console.log(err));
+            .catch((err: unknown)=>console.log(err));
     }
     return (
         <nav>

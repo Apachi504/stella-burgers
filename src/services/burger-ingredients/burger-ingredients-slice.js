@@ -18,6 +18,8 @@ export const burgerIngredientsSlice = createSlice({
     initialState,
     selectors:{
         getAllIngredients: (state) => state.burgerIngredients,
+        getBurgerIngredientsLoading: (state) => state.burgerIngredientsLoading,
+        getBurgerIngredientsError: (state) => state.burgerIngredientsError
     },
     extraReducers: (builder) => {
         builder
@@ -41,4 +43,4 @@ export const burgerIngredientsSlice = createSlice({
 }
 })
 export default burgerIngredientsSlice.reducer;
-export const {getAllIngredients} = burgerIngredientsSlice.selectors;
+export const {getAllIngredients,getBurgerIngredientsLoading,getBurgerIngredientsError} = burgerIngredientsSlice.selectors;

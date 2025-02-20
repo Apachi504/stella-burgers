@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./not-found.module.scss";
 
 const PageNotFound = () => {
-    const navigate = useNavigate();
 
     return (
         <div className={styles.container}>

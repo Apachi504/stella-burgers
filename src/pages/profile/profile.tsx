@@ -1,4 +1,4 @@
-import ProfileNavigation from "../../components/profile-navigation/profile-navigation.jsx";
+import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
 import {Outlet} from "react-router-dom";
 import styles from "./profile.module.scss";
 
