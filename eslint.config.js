@@ -16,11 +16,6 @@ export default [
                 ecmaFeatures: {jsx: true},
                 sourceType: 'module',
             },
-            overrideConfig: {
-                linterOptions: {
-                    disableUnusedDisableDirectives: true, // eslint-disable-line reportUnusedDisableDirectives
-                },
-            },
         },
         settings: {react: {version: '18.3'}},
         plugins: {
