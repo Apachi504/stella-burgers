@@ -14,7 +14,17 @@ export type TIngredient = {
     title: string,
     count: number,
     success: boolean,
+    index?: number
 }
 export type TConstructor = TIngredient & {
     id: string
+}
+export type TOrder = {
+    createdAt: string,
+    ingredients: string[],
+    name: string,
+    number: number,
+    status: string,
+    updatedAt: string,
+    _id: string
 }

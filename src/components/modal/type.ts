@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 
 export type TModal={
-    title: string,
+    title?: string | null,
     onClose: () => void,
     children?: ReactNode
 }

@@ -1,14 +1,25 @@
 import {sortIngredients} from "../../../services/burger-constructor/burger-constructor-slice.js";
-import {useDrag, useDrop} from "react-dnd";
+import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {useDispatch} from "react-redux";
-import {useRef} from "react";
+import {FC, useRef} from "react";
 import PropTypes from "prop-types";
 import styles from "./draggable-wrapper.module.scss";
+import {TIngredient} from "../../../utils/prop-types";
 
-export const DraggableWrapper = ({children, id, index}) => {
+type TDraggableWrapper = {
+    children: React.ReactNode,
+    id: string,
+    index: number
+}
+type TDragItem = {
+    id: string;
+    index: number;
+};
+export const DraggableWrapper: FC<TDraggableWrapper> = ({children, id, index}) => {
     const dispatch = useDispatch();
-    const ref = useRef(null);
-    const [{ isDragging }, drag] = useDrag({
+    const ref = useRef<HTMLLIElement>(null);
+
+    const [{ isDragging }, drag] = useDrag<TDragItem, void, { isDragging: boolean }>({
         type: "sortElement",
         item: () => {
             return { id, index };
@@ -17,9 +28,9 @@ export const DraggableWrapper = ({children, id, index}) => {
             isDragging: monitor.isDragging(),
         }),
     });
-    const [, drop] = useDrop({
+    const [, drop] = useDrop<TDragItem>({
         accept: "sortElement",
-        hover(item, monitor) {
+        hover(item:TDragItem, monitor) {
             if (!ref.current) {
                 return;
             }
@@ -32,7 +43,7 @@ export const DraggableWrapper = ({children, id, index}) => {
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
@@ -45,7 +56,7 @@ export const DraggableWrapper = ({children, id, index}) => {
             item.index = hoverIndex;
         },
     });
-    const opacity = isDragging ? 0 : 1;
+    const opacity = isDragging ? 0.5 : 1;
     drag(drop(ref));
     return (
         <li
@@ -58,8 +69,3 @@ export const DraggableWrapper = ({children, id, index}) => {
         </li>
     );
 }
-DraggableWrapper.propTypes = {
-    children: PropTypes.node,
-    id: PropTypes.string,
-    index: PropTypes.number
-};

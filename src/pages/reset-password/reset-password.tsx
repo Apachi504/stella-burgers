@@ -1,15 +1,15 @@
-import React, {SyntheticEvent, useEffect, useState} from "react";
+import React, {FC, FormEvent, SyntheticEvent, useEffect, useState} from "react";
 import styles from "../login/login.module.scss";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {resetPasswordApi} from "../../utils/api.js";
 
-function ResetPassword() {
+export const ResetPassword  :FC = () => {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
 
-    const onSubmit = (e: SyntheticEvent) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         resetPasswordApi({password, token})
             .then(() =>{
@@ -66,4 +66,3 @@ function ResetPassword() {
         </>
     )
 }
-export default ResetPassword;

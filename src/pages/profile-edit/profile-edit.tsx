@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useEffect, useRef, useState} from "react";
+import React, {FormEvent, SyntheticEvent, useEffect, useRef, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.scss";
 import {useDispatch, useSelector} from "react-redux";
@@ -38,7 +38,7 @@ function ProfileEdit() {
         formValue.email !== user?.email ||
         !!formValue.password;
 
-    const handleSubmit = (e: SyntheticEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (isFormChanged) {
             // @ts-ignore

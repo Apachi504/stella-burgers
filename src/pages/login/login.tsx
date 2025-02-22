@@ -1,5 +1,5 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {SyntheticEvent, useRef, useState} from "react";
+import React, {FormEvent, SyntheticEvent, useRef, useState} from "react";
 import styles from './login.module.scss'
 import {Link,useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -11,7 +11,7 @@ function Login () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const handleSubmit = (e: SyntheticEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // @ts-ignore
         dispatch(loginUser({email, password}))

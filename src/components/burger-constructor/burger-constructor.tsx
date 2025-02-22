@@ -6,7 +6,7 @@ import {
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.scss";
-import OrderDetails from "./order-details/order-details.jsx";
+import {OrderDetails} from "./order-details/order-details";
 import { useModal } from "../../hooks/use-modal";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
@@ -16,27 +16,33 @@ import {
     addIngredient,
     removeIngredient,
 } from "../../services/burger-constructor/burger-constructor-slice.js";
-import { DraggableWrapper } from "./draggable-wrapper/draggable-wrapper.jsx";
-import {getOrderLoading, getOrderNumber, getOrders} from "../../services/order/order-slice.js";
+import { DraggableWrapper } from "./draggable-wrapper/draggable-wrapper";
+import {getOrderLoading, getOrders} from "../../services/order/order-slice.js";
 import {totalPriceSelector} from "../../services/selectors.js";
 import {isAuthorizedSelector} from "../../services/user/user-slice.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import {TailSpin} from "react-loader-spinner";
-
+interface RootState {
+    burgerConstructor: {
+        bun: any;
+        ingredients: any[];
+    };
+}
 const BurgerConstructor = () => {
     const { isModalOpen, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
-    const burger = useSelector((state) => state.burgerConstructor)||{bun: null, ingredients: []};
+    const burger = useSelector((state: RootState) => state.burgerConstructor)||{bun: null, ingredients: []};
     const totalPrice = useSelector(totalPriceSelector);
     const isAuth = useSelector(isAuthorizedSelector);
     const navigate = useNavigate();
-    const orderNumber = useSelector(getOrderNumber);
     const isLoading = useSelector(getOrderLoading);
     const location = useLocation();
+
     const onCreateOrder = () => {
             if (burger.bun && burger.ingredients.length > 0) {
                 if(isAuth){
-                dispatch(
+                    dispatch(
+                        // @ts-ignore
                     getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
                 )
             }else {
@@ -118,9 +124,8 @@ const BurgerConstructor = () => {
                         <DraggableWrapper key={el.id} index={index} id={el._id}>
                             <DragIcon type="primary" />
                             <ConstructorElement
-                                style={{ width: "100%" }}
+                                extraClass={ "width:100%"}
                                 key={index}
-                                type="main"
                                 text={el.name}
                                 price={el.price}
                                 thumbnail={el.image}
@@ -190,7 +195,7 @@ const BurgerConstructor = () => {
                 ):(
                         isModalOpen && (
                             <Modal title={null} onClose={closeModal}>
-                                <OrderDetails orderNumber={orderNumber}/>
+                                <OrderDetails/>
                             </Modal>
                         )
                     )

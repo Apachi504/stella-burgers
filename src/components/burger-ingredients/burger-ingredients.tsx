@@ -3,11 +3,6 @@ import styles from "./burger-ingredients.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "./ingredient-group/ingredient-group.js";
 import {useInView} from "react-intersection-observer";
-import {TModal} from "../../hooks/use-modal";
-
-interface BurgerIngredientsProps {
-    openModal?: () => void
-}
 
 const BurgerIngredients: FC = () => {
     const [current, setCurrent] = React.useState("buns");

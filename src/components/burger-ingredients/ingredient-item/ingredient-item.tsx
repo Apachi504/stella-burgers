@@ -4,7 +4,6 @@ import {
     Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.scss";
-import PropTypes from "prop-types";
 import { TIngredient} from "../../../utils/prop-types.js";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -25,10 +24,11 @@ const IngredientItem: FC<TIngredientProps> = ({ingredient}) => {
     const { openModal } = useModal();
     const id = ingredient._id;
     const modal = () => {
+        //@ts-ignore
         dispatch(setIngredientDetails(ingredient));
         openModal();
     }
-    const [, dragRef] = useDrag({
+    const [, dragRef] = useDrag<TIngredient, unknown, unknown>({
         type: ingredient.type === "bun" ? "bun" : "stuffing",
         item: ingredient
     })

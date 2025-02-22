@@ -6,7 +6,7 @@ import {
     refactoringUserApi,
     registerUserApi,
     resetPasswordApi
-} from "../../utils/api.js";
+} from "../../utils/api.ts";
 
 
 export const checkAuthUser = createAsyncThunk(

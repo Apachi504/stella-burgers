@@ -18,8 +18,8 @@ import ProfileEdit from "../../pages/profile-edit/profile-edit.js";
 import ProfileOrders from "../../pages/profile-order/profile-order.js";
 import {OnlyAuth, OnlyUnAuth} from "../protected-router/protected-route.js";
 import {checkAuthUser} from "../../services/user/user-slice.js";
-import ForgotPassword from "../../pages/forgot-password/forgot-password.js";
-import ResetPassword from "../../pages/reset-password/reset-password.js";
+import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
+import {ResetPassword} from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
 import {AppHeader} from "../app-header/app-header";
 

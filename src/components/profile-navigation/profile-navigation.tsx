@@ -8,12 +8,12 @@ function ProfileNavigation() {
     const {pathname} = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const onClickHandel = (e: React.MouseEvent) => {
+    const onClickHandel = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         //@ts-ignore
         dispatch(logoutUser())
             .then(() => navigate('/login'))
-            .catch((err: unknown)=>console.log(err));
+            .catch((err: string)=>console.log(err));
     }
     return (
         <nav>

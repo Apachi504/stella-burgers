@@ -11,7 +11,8 @@ function Register (){
     const [password, setPassword] = useState('');
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const onClick = () =>{
+    const onClick = (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault()
         // @ts-ignore
         dispatch(registerUser({email, password, name}))
     }

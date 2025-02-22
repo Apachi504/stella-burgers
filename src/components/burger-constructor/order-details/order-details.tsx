@@ -1,11 +1,12 @@
 import styles from './order-details.module.scss';
-import Done from '../../../img/done.png'
+import Done from '../../../img/done.png';
+import {FC} from "react";
 import {useSelector} from "react-redux";
-import {getOrderNumber} from "../../../services/order/order-slice.js";
+import {getOrderNumber} from "../../../services/order/order-slice";
 
 
- const OrderDetails = ({orderNumber}) => {
-
+ export const OrderDetails:FC = () => {
+     const orderNumber: number = useSelector(getOrderNumber);
   return (
       <>
         <div className={styles.constructor__container}>
@@ -26,5 +27,3 @@ import {getOrderNumber} from "../../../services/order/order-slice.js";
       </>       
   );
 }
-
-export default OrderDetails
