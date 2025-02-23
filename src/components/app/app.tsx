@@ -22,6 +22,7 @@ import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
 import {ResetPassword} from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
 import {AppHeader} from "../app-header/app-header";
+import {Feed} from "../../pages/feed/feed";
 
 function App() {
     const navigate = useNavigate();
@@ -59,6 +60,7 @@ function App() {
             <div>
                 <Routes location={background || location}>
                     <Route path='/' element={<Home/>}/>
+                    <Route path='feed' element={<Feed/>}/>
                     <Route path='ingredients/:id' element={<IngredientPage/>}/>
                     <Route path='/*' element={<PageNotFound/>}/>
                     <Route path='profile' element={

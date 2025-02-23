@@ -37,13 +37,13 @@ export const AppHeader: FC = ()=> {
                                 {({isActive}) => (isActive ?
                                         <li className={styles.navbar__items}>
                                             <ListIcon type="primary"/>
-                                            <p className={`${styles.navbar__link} ${styles.active} ml-2`}>Лист
+                                            <p className={`${styles.navbar__link} ${styles.active} ml-2`}>Лента
                                                 заказов</p>
                                         </li>
                                         :
                                         <li className={styles.navbar__items}>
                                             <ListIcon type="secondary"/>
-                                            <p className={`${styles.navbar__link} ${styles.inactive} ml-2`}>Лист
+                                            <p className={`${styles.navbar__link} ${styles.inactive} ml-2`}>Лента
                                                 заказов</p>
                                         </li>
                                 )}
