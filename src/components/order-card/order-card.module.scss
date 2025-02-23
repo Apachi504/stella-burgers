@@ -22,20 +22,22 @@
   }
 }
 .composition{
-//&__item{
-//  padding: 5px;
-//  border-radius: 100px;
-//  border: 2px solid #4c4cff;
-//  //background: linear-gradient(45deg, rgb(128, 26, 178) 47%, rgb(76, 76, 255));
-//  display: inline-block;
-//}
-//  &__img{
-//    display: block;
-//    //border: 2px dashed #4c4cff;
-//    background: #1c1c21;
-//    border-radius: 100px;
-//    width: 64px;
-//    height: 64px;
-//    object-fit: cover;
-//  }
+
+&__item{
+  padding: 5px;
+  border-radius: 100px;
+  background: linear-gradient(45deg, rgb(128, 26, 178) 47%, rgb(76, 76, 255));
+  display: inline-block;
+}
+  &__item::after{
+
+  }
+  &__img{
+    display: block;
+    background: #1c1c21;
+    border-radius: 100px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+  }
 }

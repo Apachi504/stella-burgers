@@ -10,7 +10,7 @@ export const Feed = () => {
             <h1 className={styles.title}>Лента заказов</h1>
                <main className={styles.main}>
                    <FeedOrders/>
-                   <FeedInfo/>
+                   {/*<FeedInfo/>*/}
                </main>
            </section>
        </>
