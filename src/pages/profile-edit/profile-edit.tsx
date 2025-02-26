@@ -1,7 +1,7 @@
 import React, {FormEvent, SyntheticEvent, useEffect, useRef, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.scss";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/store";
 import {getUser, getUserSelector, refactoringUser} from "../../services/user/user-slice.js";
 import Loader from "../../components/loader/loader";
 
@@ -78,8 +78,8 @@ function ProfileEdit() {
     }
     return (
         <>
-            <main>
-                <form onSubmit={handleSubmit}>
+            <main className={styles.main}>
+                <form onSubmit={handleSubmit} className={styles.form}>
                     <div>
                         <Input
                             type={'text'}

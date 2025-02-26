@@ -1,40 +1,36 @@
-import React from 'react'
+import React, {FC} from 'react'
 import styles from './order-card.module.scss'
-import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import image from '../../img/bun-01.png'
-export const OrderCard = () => {
+import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {TFeedOrdersProps} from "../feed-orders/feed-orders";
+import {OrderImg} from "./order-img/order-img";
+
+export const OrderCard: FC<TFeedOrdersProps> = ({openModal}) => {
+    const onModalOpen = () => {
+        openModal();
+    }
     const today = new Date();
     return (
-        <section className={styles.container}>
+        <section className={styles.container} onClick={onModalOpen}>
          <header className={styles.header}>
              <p className={styles.header__number}>#123456</p>
              <p className={styles.header__date}>
                  <FormattedDate
-                 date={
-                     new Date(
-                         today.getFullYear(),
-                         today.getMonth(),
-                         today.getDate(),
-                         today.getHours(),
-                         today.getMinutes() - 1,
-                         0,
-                     )}/></p>
+                 date={today}/></p>
          </header>
             <main className={styles.main}>
-            <h3 className={styles.main__title}>Death Star Starship Main бургер</h3>
+            <h3 className={styles.main__title}>Death Star Starship Main frame with custom бургер</h3>
             </main>
             <div className={styles.composition}>
                 <ul className={styles.composition__list}>
-                    <li className={styles.composition__item}>
-                        <img src={image} alt={'test'} className={styles.composition__img}/>
-                    </li>
-                    <li className={styles.composition__item}>
-                        <img src={image} alt={'test'} className={styles.composition__img}/>
-                    </li>
-                    <li className={styles.composition__item}>
-                        <img src={image} alt={'test'} className={styles.composition__img}/>
-                    </li>
+                    <OrderImg/>
+                    <OrderImg/>
+                    <OrderImg/>
+                    <OrderImg/>
                 </ul>
+                <div className={styles.price}>
+                    <p className={styles.price__total}>480</p>
+                    <CurrencyIcon type="primary"/>
+                </div>
             </div>
         </section>
     )

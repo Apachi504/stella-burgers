@@ -16,7 +16,7 @@ function ProfileNavigation() {
             .catch((err: string)=>console.log(err));
     }
     return (
-        <nav>
+        <nav className={styles.nav}>
             <ul className={styles.list}>
                 <NavLink to='/profile'
                          className={({isActive}) => `${styles.link} ${isActive ? styles.active : styles.inactive}`} end>

@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {TIngredientDetailsProps} from "./types";
 
-const initialState = {
+const initialState:TIngredientDetailsProps = {
     src: '',
     name: '',
     calories: '',

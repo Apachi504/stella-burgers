@@ -176,16 +176,16 @@ const userSlice = createSlice({
                 state.error = action.error.message || 'Произошла ошибка';
             })
             .addCase(checkAuthUser.pending, (state) => {
-                state.isUserLoading = true;
+                state.isLoading = true;
                 state.error = null;
             })
             .addCase(checkAuthUser.rejected, (state, action) => {
-                state.isUserLoading = false;
+                state.isLoading = false;
                 state.error = action.error.message;
                 state.isAuthChecked = false;
             })
             .addCase(checkAuthUser.fulfilled, (state, action) => {
-                state.isUserLoading = false;
+                state.isLoading = false;
                 state.user = action.payload;
                 state.isAuthenticated = true;
                 state.isAuthChecked = true;

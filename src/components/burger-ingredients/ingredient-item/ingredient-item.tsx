@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.scss";
 import { TIngredient} from "../../../utils/prop-types.js";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../../services/store";
 import {
     setIngredientDetails
 } from "../../../services/ingredient-details/ingredient-details-slice.js";
@@ -17,14 +17,12 @@ import {TIngredientProps} from "./type";
 
 
 const IngredientItem: FC<TIngredientProps> = ({ingredient}) => {
-    //@ts-ignore
     const burgerIngredients = useSelector(state => state.burgerConstructor);
     const dispatch = useDispatch();
     const location = useLocation();
     const { openModal } = useModal();
     const id = ingredient._id;
     const modal = () => {
-        //@ts-ignore
         dispatch(setIngredientDetails(ingredient));
         openModal();
     }

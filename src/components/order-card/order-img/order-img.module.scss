@@ -1,0 +1,20 @@
+.item{
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(68deg, rgb(128, 26, 178) 10%, rgb(76, 76, 255));
+  display: inline-block;
+  position: relative;
+  right: 25px;
+}
+.item:nth-child(n+1){
+  position: relative;
+  margin-right: -25px;
+}
+.img{
+  display: block;
+  background: #1c1c21;
+  border-radius: 100px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}

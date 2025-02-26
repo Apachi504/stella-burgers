@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { postDataIngredients} from "../../utils/api.ts";
-import { resetConstructor } from "../burger-constructor/burger-constructor-slice.js";
+import { resetConstructor } from "../burger-constructor/burger-constructor-slice.ts";
 
 
 export const getOrders = createAsyncThunk(

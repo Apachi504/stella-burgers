@@ -1,7 +1,9 @@
 import {checkResponse} from "./getResponse";
 import {BASE_URL} from "./constant.js";
 import {TIngredient} from "./prop-types";
-
+type TServerResponse<T> = {
+    success: boolean;
+} & T;
 type TResponse = {
     success: boolean;
     accessToken?: string;
@@ -34,12 +36,15 @@ export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Pr
         return Promise.reject(err);
     }
 }
-
+type TIngredients ={
+    success: boolean;
+    data:TIngredient[];
+};
 export const getBurgerIngredients = () =>
     fetch(`${BASE_URL}/ingredients`)
-        .then((res) => checkResponse<TIngredient>(res))
+        .then((res) => checkResponse<TIngredients>(res))
         .then((data) => {
-            if (data?.success) return data;
+            if (data?.success) return data.data;
             return Promise.reject(data);
         });
 

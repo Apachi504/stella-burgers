@@ -1,7 +1,9 @@
-import {createSelector, createSlice} from "@reduxjs/toolkit";
+import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {v6} from 'uuid';
+import {TBurgerConstructor} from "./types";
+import {TConstructor, TIngredient} from "../../utils/prop-types";
 
-const initialState = {
+const initialState: TBurgerConstructor = {
     bun: null,
     ingredients: []
 }
@@ -19,7 +21,7 @@ const burgerConstructorSlice = createSlice({
                     }
                 }
             },
-            reducer: (state, action) => {
+            reducer: (state, action:PayloadAction<TConstructor>) => {
                 state.bun = action.payload;
             }
         },
@@ -32,7 +34,7 @@ const burgerConstructorSlice = createSlice({
                     }
                 }
             },
-            reducer: (state, action) => {
+            reducer: (state, action:PayloadAction<TConstructor>) => {
                 state.ingredients.push(action.payload);
             }
         },
@@ -53,7 +55,7 @@ const burgerConstructorSlice = createSlice({
                 );
             }
         },
-        resetConstructor: (state, action) => {
+        resetConstructor: (state) => {
             Object.assign(state, initialState);
         }
     },

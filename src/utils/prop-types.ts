@@ -1,20 +1,15 @@
 export type TIngredient = {
-    calories: number,
-    carbohydrates: number,
-    fat: number,
-    image: string,
-    image_large: string,
-    image_mobile: string,
-    name: string,
-    price: number,
-    proteins: number,
-    type: string,
-    _id: string,
-    key: string,
-    title: string,
-    count: number,
-    success: boolean,
-    index?: number
+    _id: string;
+    name: string;
+    type: string;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+    calories: number;
+    price: number;
+    image: string;
+    image_large: string;
+    image_mobile: string;
 }
 export type TConstructor = TIngredient & {
     id: string

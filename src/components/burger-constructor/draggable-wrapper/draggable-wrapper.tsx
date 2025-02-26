@@ -1,20 +1,13 @@
-import {sortIngredients} from "../../../services/burger-constructor/burger-constructor-slice.js";
+import {sortIngredients} from "../../../services/burger-constructor/burger-constructor-slice";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {useDispatch} from "react-redux";
 import {FC, useRef} from "react";
 import PropTypes from "prop-types";
 import styles from "./draggable-wrapper.module.scss";
 import {TIngredient} from "../../../utils/prop-types";
+import {TDraggableWrapper, TDragItem} from "./types";
 
-type TDraggableWrapper = {
-    children: React.ReactNode,
-    id: string,
-    index: number
-}
-type TDragItem = {
-    id: string;
-    index: number;
-};
+
 export const DraggableWrapper: FC<TDraggableWrapper> = ({children, id, index}) => {
     const dispatch = useDispatch();
     const ref = useRef<HTMLLIElement>(null);

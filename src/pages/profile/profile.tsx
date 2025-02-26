@@ -7,8 +7,11 @@ function Profile() {
         <section className={styles.main}>
             <div className={styles.container}>
                 <ProfileNavigation/>
+                <div>
+                    <Outlet/>
+                </div>
             </div>
-            <Outlet/>
+
         </section>
     );
 }

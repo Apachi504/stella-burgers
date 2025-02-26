@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 120px;
+  //align-items: center;
+  gap: 60px;
 }
 .main {
   display: flex;
@@ -12,6 +12,6 @@
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 150px;
+  //padding-top: 150px;
   gap: 120px;
 }

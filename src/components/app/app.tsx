@@ -1,5 +1,5 @@
 import React, { useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/store";
 import {
     getBurgerIngredientsError,
     getBurgerIngredientsLoading,
@@ -33,9 +33,7 @@ function App() {
     const background = location.state && location.state?.backgroundLocation;
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getIngredients());
-        // @ts-ignore
         dispatch(checkAuthUser());
     }, []);
 

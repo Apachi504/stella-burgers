@@ -1,14 +1,18 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getBurgerIngredients} from "../../utils/api.ts";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {getBurgerIngredients} from "../../utils/api";
+import {TBurgerIngredientsState} from "./types";
+import {TIngredient} from "../../utils/prop-types";
 
-export const getIngredients = createAsyncThunk(
+export const getIngredients = createAsyncThunk<TIngredient[]>(
     'burgerIngredients/getIngredients',
     async () => {
         await new Promise(resolve => setTimeout(resolve, 2000));
-        return getBurgerIngredients();
+        const res = await getBurgerIngredients();
+        return res;
     }
 );
-const initialState = {
+
+const initialState:TBurgerIngredientsState = {
     burgerIngredients: [],
     burgerIngredientsLoading: false,
     burgerIngredientsError: false
@@ -16,6 +20,7 @@ const initialState = {
 export const burgerIngredientsSlice = createSlice({
     name: 'burgerIngredients',
     initialState,
+    reducers: {},
     selectors:{
         getAllIngredients: (state) => state.burgerIngredients,
         getBurgerIngredientsLoading: (state) => state.burgerIngredientsLoading,
@@ -24,7 +29,7 @@ export const burgerIngredientsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(
-            getIngredients.fulfilled, (state, action) => {
+            getIngredients.fulfilled, (state, action: PayloadAction<TIngredient[]>) => {
                 state.burgerIngredients = action.payload;
                 state.burgerIngredientsLoading = false;
                 state.burgerIngredientsError = false;

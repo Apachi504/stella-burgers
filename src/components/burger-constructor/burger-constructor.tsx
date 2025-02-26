@@ -10,7 +10,7 @@ import {OrderDetails} from "./order-details/order-details";
 import { useModal } from "../../hooks/use-modal";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/store";
 import {
     addBun,
     addIngredient,
@@ -22,16 +22,11 @@ import {totalPriceSelector} from "../../services/selectors.js";
 import {isAuthorizedSelector} from "../../services/user/user-slice.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import {TailSpin} from "react-loader-spinner";
-interface RootState {
-    burgerConstructor: {
-        bun: any;
-        ingredients: any[];
-    };
-}
+
 const BurgerConstructor = () => {
     const { isModalOpen, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
-    const burger = useSelector((state: RootState) => state.burgerConstructor)||{bun: null, ingredients: []};
+    const burger = useSelector(state => state.burgerConstructor)||{bun: null, ingredients: []};
     const totalPrice = useSelector(totalPriceSelector);
     const isAuth = useSelector(isAuthorizedSelector);
     const navigate = useNavigate();
