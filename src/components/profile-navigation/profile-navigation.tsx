@@ -1,6 +1,6 @@
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import styles from "./profile-navigation.module.scss";
-import {logoutUser} from "../../services/user/user-slice.js";
+import {logoutUser} from "../../services/user/user-slice";
 import {useDispatch} from "react-redux";
 import React from "react";
 

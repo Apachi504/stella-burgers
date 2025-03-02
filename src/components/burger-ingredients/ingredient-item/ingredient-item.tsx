@@ -6,9 +6,6 @@ import {
 import styles from "./ingredient-item.module.scss";
 import { TIngredient} from "../../../utils/prop-types.js";
 import {useDispatch, useSelector} from "../../../services/store";
-import {
-    setIngredientDetails
-} from "../../../services/ingredient-details/ingredient-details-slice.js";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 import {useModal} from "../../../hooks/use-modal";
@@ -23,7 +20,6 @@ const IngredientItem: FC<TIngredientProps> = ({ingredient}) => {
     const { openModal } = useModal();
     const id = ingredient._id;
     const modal = () => {
-        dispatch(setIngredientDetails(ingredient));
         openModal();
     }
     const [, dragRef] = useDrag<TIngredient, unknown, unknown>({

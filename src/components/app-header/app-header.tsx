@@ -3,7 +3,7 @@ import styles from "./app-header.module.scss";
 import {NavLink} from "react-router-dom";
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
-import {getUserSelector} from "../../services/user/user-slice.js";
+import {getUserSelector} from "../../services/user/user-slice";
 
 type TUser = {
     user: {
@@ -12,7 +12,6 @@ type TUser = {
 }
 
 export const AppHeader: FC = ()=> {
-    // @ts-ignore
     const user: TUser = useSelector(getUserSelector);
     return (
         <header className={styles.header}>

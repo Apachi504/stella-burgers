@@ -3,7 +3,7 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import {Link} from "react-router-dom";
 import React, { useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {registerUser} from "../../services/user/user-slice.js";
+import {registerUser} from "../../services/user/user-slice";
 
 function Register (){
     const [email, setEmail] = useState('');

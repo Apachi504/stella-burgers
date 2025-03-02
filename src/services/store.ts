@@ -1,7 +1,7 @@
 import {combineSlices, configureStore} from "@reduxjs/toolkit";
 import burgerIngredientsSlice from "./burger-ingredients/burger-ingredients-slice";
 import burgerConstructorSlice from "./burger-constructor/burger-constructor-slice";
-import orderSlice from "./order/order-slice.js";
+import orderSlice from "./order/order-slice";
 import userSlice from "./user/user-slice.js";
 import {
     useDispatch as dispatchHook,

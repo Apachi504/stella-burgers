@@ -2,7 +2,7 @@ import React, {FormEvent, SyntheticEvent, useEffect, useRef, useState} from "rea
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.scss";
 import {useDispatch, useSelector} from "../../services/store";
-import {getUser, getUserSelector, refactoringUser} from "../../services/user/user-slice.js";
+import {getUser, getUserSelector, refactoringUser} from "../../services/user/user-slice";
 import Loader from "../../components/loader/loader";
 
 function ProfileEdit() {

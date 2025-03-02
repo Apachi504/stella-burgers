@@ -15,11 +15,11 @@ import {
     addBun,
     addIngredient,
     removeIngredient,
-} from "../../services/burger-constructor/burger-constructor-slice.js";
+} from "../../services/burger-constructor/burger-constructor-slice";
 import { DraggableWrapper } from "./draggable-wrapper/draggable-wrapper";
-import {getOrderLoading, getOrders} from "../../services/order/order-slice.js";
+import {getOrderLoading, getOrders} from "../../services/order/order-slice";
 import {totalPriceSelector} from "../../services/selectors.js";
-import {isAuthorizedSelector} from "../../services/user/user-slice.js";
+import {isAuthorizedSelector} from "../../services/user/user-slice";
 import {useLocation, useNavigate} from "react-router-dom";
 import {TailSpin} from "react-loader-spinner";
 

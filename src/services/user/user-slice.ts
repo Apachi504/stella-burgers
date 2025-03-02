@@ -6,49 +6,56 @@ import {
     refactoringUserApi,
     registerUserApi,
     resetPasswordApi
-} from "../../utils/api.ts";
+} from "../../utils/api";
 
 
 export const checkAuthUser = createAsyncThunk(
     'user/checkUserAuth',
-    async (_,{dispatch}) =>{
-       if (localStorage.getItem("accessToken")){
-           getUserApi()
-               .then((res)=>dispatch(setUser(res)))
-               .finally(dispatch(checkUserStatus(true)))
-       } else {
-           dispatch(checkUserStatus(true))
-       }
-}
+    async (_, {dispatch}) => {
+        if (localStorage.getItem("accessToken")) {
+            getUserApi()
+                .then((res) => dispatch(setUser(res)))
+                .finally(() => dispatch(checkUserStatus(true)))
+        } else {
+            dispatch(checkUserStatus(true))
+        }
+    }
 )
 export const registerUser = createAsyncThunk(
     'user/registerUser',
-    ({email, password, name}) => registerUserApi({email, password, name})
+    (data: { email: string, password: string, name: string }) => registerUserApi(data)
 )
 export const loginUser = createAsyncThunk(
     'user/loginUser',
-    ({email, password}) => loginUserApi({email, password})
+    (data: { email: string, password: string }) => loginUserApi(data)
 )
 export const logoutUser = createAsyncThunk(
     'user/logoutUser', logoutUserApi
 )
 export const refactoringUser = createAsyncThunk(
     'user/refactoringUser',
-    ({name, email, password}) => refactoringUserApi({name, email, password})
+    (data: { email: string, password: string, name: string }) => refactoringUserApi(data)
 )
 export const forgotPassword = createAsyncThunk(
     'user/forgotPassword',
-    ({email}) => forgotPasswordApi({email})
+    (data: { email: string }) => forgotPasswordApi(data)
 )
 export const resetPassword = createAsyncThunk(
     'user/resetPassword',
-    ({password, token}) => resetPasswordApi({password, token})
+    (data: { password: string, token: string }) => resetPasswordApi(data)
 )
 export const getUser = createAsyncThunk(
     'user/getUser',
     () => getUserApi()
 )
-const initialState = {
+type TInitialState = {
+    user: any | null,
+    isAuthChecked: boolean,
+    isLoading: boolean,
+    error: string | null,
+    isAuthorized: boolean
+}
+const initialState: TInitialState = {
     user: null,
     isAuthChecked: false,
     isLoading: false,
@@ -62,10 +69,10 @@ const userSlice = createSlice({
         clearUserError: (state) => {
             state.error = null;
         },
-        checkUserStatus: (state) => {
-            state.isAuthChecked = true;
+        checkUserStatus: (state, action) => {
+            state.isAuthChecked = action.payload;
         },
-        setUser: (state,action)=>{
+        setUser: (state, action) => {
             state.user = action.payload;
         }
     },
@@ -157,7 +164,7 @@ const userSlice = createSlice({
                 state.isLoading = false;
                 state.error = null;
             })
-            .addCase(resetPassword.rejected,(state,action)=>{
+            .addCase(resetPassword.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message || 'Произошла ошибка';
             })
@@ -181,19 +188,25 @@ const userSlice = createSlice({
             })
             .addCase(checkAuthUser.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message;
+                state.error = action.error.message|| 'Произошла ошибка';
                 state.isAuthChecked = false;
             })
             .addCase(checkAuthUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload;
-                state.isAuthenticated = true;
+                state.isAuthorized = true;
                 state.isAuthChecked = true;
             })
     }
 
 });
-export const {clearUserError,checkUserStatus,setUser} = userSlice.actions;
-export const {getUserStateSelector,getIsAuthCheckedSelector, getUserSelector, isAuthorizedSelector, getUserErrorSelector} = userSlice.selectors;
+export const {clearUserError, checkUserStatus, setUser} = userSlice.actions;
+export const {
+    getUserStateSelector,
+    getIsAuthCheckedSelector,
+    getUserSelector,
+    isAuthorizedSelector,
+    getUserErrorSelector
+} = userSlice.selectors;
 export default userSlice.reducer;
 

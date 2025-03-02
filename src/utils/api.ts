@@ -1,16 +1,25 @@
 import {checkResponse} from "./getResponse";
 import {BASE_URL} from "./constant.js";
-import {TIngredient} from "./prop-types";
-type TServerResponse<T> = {
-    success: boolean;
-} & T;
+import {TIngredient, TOrder} from "./prop-types";
+
+// type TServerResponse<T> = {
+//     success: boolean;
+// } & T;
 type TResponse = {
     success: boolean;
     accessToken?: string;
     refreshToken?: string;
 };
+type TServerResponse<T> = {
+    success: boolean;
+} & T;
 
-export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Promise<TResponse> {
+type TRefreshResponse = TServerResponse<{
+    refreshToken: string;
+    accessToken: string;
+}>;
+
+ export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Promise<TResponse> {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
@@ -47,9 +56,13 @@ export const getBurgerIngredients = () =>
             if (data?.success) return data.data;
             return Promise.reject(data);
         });
+type TOrderResponse = TServerResponse<{
+    name: string;
+    order: TOrder;
+}>;
 
-export const postDataIngredients = async (order:string[]) => {
-    return await fetchWithRefresh(`${BASE_URL}/orders`, {
+export const getOrderApi = async (order: string[]) => {
+    const data = await fetchWithRefresh(`${BASE_URL}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -57,12 +70,23 @@ export const postDataIngredients = async (order:string[]) => {
         } as HeadersInit,
         body: JSON.stringify({ingredients: order}),
     });
+    if (data?.success) return data;
+    return Promise.reject(data);
 }
 type TRegisterUser = {
     email:string,
     password?:string,
     name?:string
 }
+type TAuthUserResponse = TServerResponse<{
+    accessToken: string;
+    refreshToken: string;
+    user: {
+        email: string;
+        name: string;
+    };
+}>;
+
 export const registerUserApi = ({email, password, name} : TRegisterUser) =>
     fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
@@ -74,7 +98,7 @@ export const registerUserApi = ({email, password, name} : TRegisterUser) =>
             password: password,
             name: name
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TAuthUserResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);
@@ -89,7 +113,7 @@ export const forgotPasswordApi = ({email}:TRegisterUser) =>
         body: JSON.stringify({
             email: email
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TRefreshResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);
@@ -109,11 +133,12 @@ export const resetPasswordApi = ({password, token}: TResetPassword) =>
             password: password,
             token: token
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TRefreshResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);
         })
+
 export const loginUserApi = ({email, password}: TRegisterUser) =>
     fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
@@ -124,7 +149,7 @@ export const loginUserApi = ({email, password}: TRegisterUser) =>
             email: email,
             password: password
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TAuthUserResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);

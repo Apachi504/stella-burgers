@@ -1,9 +1,9 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {FormEvent, SyntheticEvent, useRef, useState} from "react";
+import React, {FormEvent, useRef, useState} from "react";
 import styles from './login.module.scss'
 import {Link,useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {loginUser} from "../../services/user/user-slice.js";
+import {loginUser} from "../../services/user/user-slice";
 function Login () {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
