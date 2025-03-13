@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getOrderApi} from "../../utils/api";
 import { resetConstructor } from "../burger-constructor/burger-constructor-slice";
 import {TIngredients, TOrderState} from "./types";
-import {TOrder} from "../../utils/prop-types";
+import {TOrder} from "../../utils/types/prop-types";
 
 
 export const getOrders = createAsyncThunk<TOrder,TIngredients>(

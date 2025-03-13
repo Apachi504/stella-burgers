@@ -1,7 +1,7 @@
 import styles from "./ingredient-group.module.scss";
 import IngredientItem from "../ingredient-item/ingredient-item.js";
 import {FC, memo} from "react";
-import {TIngredient} from "../../../utils/prop-types.js";
+import {TIngredient} from "../../../utils/types/prop-types.js";
 import {useSelector} from "../../../services/store";
 import {getAllIngredients} from "../../../services/burger-ingredients/burger-ingredients-slice";
 import React from "react";

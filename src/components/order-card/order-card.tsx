@@ -3,8 +3,11 @@ import styles from './order-card.module.scss'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TFeedOrdersProps} from "../feed-orders/feed-orders";
 import {OrderImg} from "./order-img/order-img";
+import {useSelector} from "../../services/store";
+import {getOrders} from "../../services/get-all-orders/get-all-orders-slice";
 
 export const OrderCard: FC<TFeedOrdersProps> = ({openModal}) => {
+    const order = useSelector(getOrders);
     const onModalOpen = () => {
         openModal();
     }

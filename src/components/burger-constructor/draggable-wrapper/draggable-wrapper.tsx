@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {FC, useRef} from "react";
 import PropTypes from "prop-types";
 import styles from "./draggable-wrapper.module.scss";
-import {TIngredient} from "../../../utils/prop-types";
+import {TIngredient} from "../../../utils/types/prop-types";
 import {TDraggableWrapper, TDragItem} from "./types";
 
 

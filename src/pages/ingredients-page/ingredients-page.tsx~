@@ -4,7 +4,7 @@ import IngredientDetails from "../../components/burger-ingredients/ingredient-de
 import {useSelector} from "../../services/store";
 import {getAllIngredients} from "../../services/burger-ingredients/burger-ingredients-slice.js";
 import styles from "./ingredients-page.module.scss";
-import {TIngredient} from "../../utils/types/prop-types";
+import {TIngredient} from "../../utils/prop-types";
 export const IngredientPage = () => {
     const {id} = useParams();
     const burgerIngredients : { data: TIngredient[] } = useSelector(getAllIngredients);

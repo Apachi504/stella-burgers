@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getBurgerIngredients} from "../../utils/api";
 import {TBurgerIngredientsState} from "./types";
-import {TIngredient} from "../../utils/types/prop-types";
+import {TIngredient} from "../../utils/prop-types";
 
 export const getIngredients = createAsyncThunk<TIngredient[]>(
     'burgerIngredients/getIngredients',

@@ -4,7 +4,7 @@ import {
     Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.scss";
-import { TIngredient} from "../../../utils/prop-types.js";
+import { TIngredient} from "../../../utils/types/prop-types.js";
 import {useDispatch, useSelector} from "../../../services/store";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";

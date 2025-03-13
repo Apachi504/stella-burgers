@@ -37,7 +37,6 @@ const BurgerConstructor = () => {
             if (burger.bun && burger.ingredients.length > 0) {
                 if(isAuth){
                     dispatch(
-                        // @ts-ignore
                     getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
                 )
             }else {

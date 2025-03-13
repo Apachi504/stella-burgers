@@ -1,4 +1,4 @@
-import {TIngredient} from "../../../utils/types/prop-types";
+import {TIngredient} from "../../../utils/prop-types";
 
 export type TIngredientProps = {
     ingredient: TIngredient

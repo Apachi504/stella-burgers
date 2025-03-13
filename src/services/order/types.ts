@@ -1,4 +1,4 @@
-import {TIngredient, TOrder} from "../../utils/prop-types";
+import {TIngredient, TOrder} from "../../utils/types/prop-types";
 
 export type TOrderState = {
     orders:TOrder| null, // Данные заказа
