@@ -40,24 +40,20 @@ export const socketMiddleware = <R, S>(
                 const {dispatch} = store;
 
                 if (connect.match(action)) {
-                    console.log("Connecting to WebSocket...");
                     url = action.payload;
                     socket = new WebSocket(action.payload);
                     onConnecting && dispatch(onConnecting());
                     isConnected = true;
 
                     socket.onopen = () => {
-                        console.log("WebSocket connected");
                         onOpen && dispatch(onOpen());
                     };
 
                     socket.onerror = () => {
-                        console.error("WebSocket error:", onError);
                         dispatch(onError("WebSocket error: " + onError));
                     };
 
                     socket.onmessage = (event) => {
-                        console.log("WebSocket message received:", event.data);
                         const {data} = event;
 
                         try {

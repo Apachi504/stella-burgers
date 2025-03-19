@@ -21,10 +21,13 @@
   }
   &__number{
     composes: text text_type_digits-default  from global;
+    //margin-right: 8px;
     &_status{
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      justify-content: space-between;
+      //gap: 8px;
+
       max-height: 152px;
     }
     &_done{

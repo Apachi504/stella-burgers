@@ -7,11 +7,11 @@ import styles from "./ingredients-page.module.scss";
 import {TIngredient} from "../../utils/types/prop-types";
 export const IngredientPage = () => {
     const {id} = useParams();
-    const burgerIngredients : { data: TIngredient[] } = useSelector(getAllIngredients);
+    const burgerIngredients = useSelector(getAllIngredients);
 
     const ingredient = useMemo(() => {
-        return burgerIngredients?.data?.find((item:TIngredient) => item._id === id);
-    }, [burgerIngredients.data, id]);
+        return burgerIngredients?.find((item:TIngredient) => item._id === id);
+    }, [burgerIngredients, id]);
 
     return (
         ingredient && <section className={styles.container}>

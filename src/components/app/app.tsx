@@ -23,6 +23,8 @@ import {ResetPassword} from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
 import {AppHeader} from "../app-header/app-header";
 import {Feed} from "../../pages/feed/feed";
+import {OrderInfo} from "../feed-orders/order-info/order-info";
+import {FeedPage} from "../../pages/feed-page/feed-page";
 
 function App() {
     const navigate = useNavigate();
@@ -59,6 +61,7 @@ function App() {
                 <Routes location={background || location}>
                     <Route path='/' element={<Home/>}/>
                     <Route path='feed' element={<Feed/>}/>
+                    <Route path='feed/:number' element={<FeedPage/>}/>
                     <Route path='ingredients/:id' element={<IngredientPage/>}/>
                     <Route path='/*' element={<PageNotFound/>}/>
                     <Route path='profile' element={
@@ -66,6 +69,8 @@ function App() {
                         <Route index element={<ProfileEdit/>}/>
                         <Route path='orders' element={<ProfileOrders/>}/>
                     </Route>
+                    <Route path='profile/orders/:number' element={
+                        <OnlyAuth component={<FeedPage/>}/>}/>
                     <Route path='login' element={
                         <OnlyUnAuth component={<Login/>}/>
                     }/>
@@ -87,6 +92,20 @@ function App() {
                                     <IngredientDetails ingredient={location.state?.ingredient}/>
                                 </Modal>}>
                             </Route>}
+                        { location.state?.orderNumber &&
+                            <Route path='feed/:number' element={
+                                <Modal title={`#${location.state?.orderNumber.number}`} onClose={onCloseModal}>
+                                    <OrderInfo order={location.state?.orderNumber}/>
+                                </Modal>}>
+                            </Route>
+                        }
+                        { location.state?.orderNumber &&
+                            <Route path='profile/orders/:number' element={
+                                <Modal title={`#${location.state?.orderNumber.number}`} onClose={onCloseModal}>
+                                    <OrderInfo order={location.state?.orderNumber}/>
+                                </Modal>}>
+                            </Route>
+                        }
                     </Routes>
                 }
             </div>

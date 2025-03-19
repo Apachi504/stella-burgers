@@ -7,10 +7,10 @@ import {
     useDispatch as dispatchHook,
     useSelector as selectorHook
 } from "react-redux";
-import {allOrdersSlice} from "./get-all-orders/get-all-orders-slice";
-import {profileOrdersSlice} from "./get-profile-orders/profile-orders-slice";
+import allOrdersReducer from "./get-all-orders/get-all-orders-slice";
 import {socketMiddleware, TWsActionTypes} from "./middleware/socet-middleware";
 import {allOrdersActions} from "./get-all-orders/actions";
+import profileOrdersReducer from "./get-profile-orders/profile-orders-slice";
 import {profileOrdersActions} from "./get-profile-orders/actions";
 
 const rootReducer = combineSlices({
@@ -18,8 +18,8 @@ const rootReducer = combineSlices({
     burgerConstructor: burgerConstructorSlice,
     order: orderSlice,
     user: userSlice,
-    allOrders: allOrdersSlice.reducer,
-    profileOrders: profileOrdersSlice.reducer
+    allOrders: allOrdersReducer,
+    profileOrders: profileOrdersReducer
 })
 
 const AllOrdersMiddleware = socketMiddleware(allOrdersActions,false);

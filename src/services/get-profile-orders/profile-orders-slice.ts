@@ -1,6 +1,6 @@
 import {IDataFeed, WebsocketStatus} from "../../utils/types/web-socket-feed";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {allOrdersSlice} from "../get-all-orders/get-all-orders-slice";
+import {createReducer, PayloadAction} from "@reduxjs/toolkit";
+import {wsClose, wsConnecting, wsError, wsMessage, wsOpen} from "./actions";
 
 export type TProfileOrdersState = {
     status: WebsocketStatus;
@@ -12,32 +12,25 @@ export const initialState:TProfileOrdersState = {
     error: null,
     orders: null
 }
-export const profileOrdersSlice = createSlice({
-    name: 'profileOrders',
-    initialState,
-    reducers: {
-        wsConnecting:(state) =>{
+ const profileOrdersReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(wsConnecting, (state) => {
             state.status = WebsocketStatus.CONNECTING;
-        },
-        wsOpen:(state)=> {
+        })
+        .addCase(wsOpen, (state) => {
             state.status = WebsocketStatus.ONLINE;
             state.error = null;
-        },
-        wsClose:(state)=> {
+        })
+        .addCase(wsClose, (state) => {
             state.status = WebsocketStatus.OFFLINE;
-        },
-        wsError:(state, action: PayloadAction<string>) =>{
+            state.orders = null;
+        })
+        .addCase(wsError, (state, action:PayloadAction<string>) => {
             state.error = action.payload;
-        },
-        wsMessage:(state, action: PayloadAction<IDataFeed>) =>{
+        })
+        .addCase(wsMessage, (state, action: PayloadAction<IDataFeed>) => {
             state.orders = action.payload;
-        },
-    },
-    selectors:{
-        getStatus: (state) => state.status,
-        getOrders: (state) => state.orders,
-        getError: (state) => state.error
-    },
-})
-export const {wsConnecting, wsOpen, wsClose, wsError, wsMessage} = allOrdersSlice.actions;
-export const {getStatus, getOrders, getError} = allOrdersSlice.selectors;
+    })
+ })
+
+ export default profileOrdersReducer

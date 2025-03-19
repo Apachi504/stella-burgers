@@ -8,35 +8,32 @@ import Modal from "../../components/modal/modal";
 import {useDispatch, useSelector} from "../../services/store";
 import {wsConnectAllOrders, wsDisconnectAllOrders} from "../../services/get-all-orders/actions";
 import {WS_URL} from "../../utils/constant";
-import {getOrders, getStatus} from "../../services/get-all-orders/get-all-orders-slice";
+import {selectOrders, selectStatus} from "../../services/get-all-orders/selectors";
+import Loader from "../../components/loader/loader";
 
 export const Feed = () => {
-    const {isModalOpen, openModal, closeModal} = useModal();
     const dispatch = useDispatch();
-    const order = useSelector((state) => state.allOrders.order?.orders);
-    const status = useSelector(getStatus);
+    const order = useSelector(selectOrders);
+
     useEffect(() => {
         dispatch(wsConnectAllOrders(WS_URL));
+
         return () => {
             dispatch(wsDisconnectAllOrders());
-        }
-    }, [dispatch])
-console.log(status);
+        };
+    }, [dispatch]);
+
+    if (!order || order.length === 0) {
+        return <Loader/>;
+    }
     return (
         <>
             <section className={styles.container}>
                 <h1 className={styles.title}>Лента заказов</h1>
                 <main className={styles.main}>
-                    <FeedOrders openModal={openModal} order={order}/>
+                    <FeedOrders order={order}/>
                     <FeedInfo/>
                 </main>
-                {
-                    isModalOpen && (
-                        <Modal orderNumber={'03453'} onClose={closeModal}>
-                            <OrderInfo/>
-                        </Modal>
-                    )
-                }
             </section>
         </>
     )

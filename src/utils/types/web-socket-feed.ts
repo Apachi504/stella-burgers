@@ -1,3 +1,5 @@
+import {TOrder} from "./prop-types";
+
 export enum WebsocketStatus {
     CONNECTING = 'CONNECTING...',
     ONLINE = 'ONLINE',
@@ -5,13 +7,14 @@ export enum WebsocketStatus {
 }
 
 export interface IFeedIngredient {
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-    status: 'created' | 'pending' | 'done';
-    number: number;
-    name: string;
-    ingredients: string[];
+    _id: string,
+    createdAt: string,
+    updatedAt: string,
+    status: 'created' | 'pending' | 'done',
+    number: number,
+    name: string,
+    ingredients: string[],
+    orders?: TOrder
 }
 
 export interface IDataFeed {
