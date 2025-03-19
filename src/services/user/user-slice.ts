@@ -22,31 +22,25 @@ export const checkAuthUser = createAsyncThunk(
     }
 )
 export const registerUser = createAsyncThunk(
-    'user/registerUser',
-    (data: { email: string, password: string, name: string }) => registerUserApi(data)
+    'user/registerUser',registerUserApi
 )
 export const loginUser = createAsyncThunk(
-    'user/loginUser',
-    (data: { email: string, password: string }) => loginUserApi(data)
+    'user/loginUser', loginUserApi
 )
 export const logoutUser = createAsyncThunk(
     'user/logoutUser', logoutUserApi
 )
 export const refactoringUser = createAsyncThunk(
-    'user/refactoringUser',
-    (data: { email: string, password: string, name: string }) => refactoringUserApi(data)
+    'user/refactoringUser',refactoringUserApi
 )
 export const forgotPassword = createAsyncThunk(
-    'user/forgotPassword',
-    (data: { email: string }) => forgotPasswordApi(data)
+    'user/forgotPassword', forgotPasswordApi
 )
 export const resetPassword = createAsyncThunk(
-    'user/resetPassword',
-    (data: { password: string, token: string }) => resetPasswordApi(data)
+    'user/resetPassword',resetPasswordApi
 )
 export const getUser = createAsyncThunk(
-    'user/getUser',
-    () => getUserApi()
+    'user/getUser',getUserApi
 )
 type TInitialState = {
     user: any | null,
@@ -181,6 +175,8 @@ const userSlice = createSlice({
             .addCase(getUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message || 'Произошла ошибка';
+                state.isAuthorized = false;
+
             })
             .addCase(checkAuthUser.pending, (state) => {
                 state.isLoading = true;
@@ -194,7 +190,6 @@ const userSlice = createSlice({
             .addCase(checkAuthUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload;
-                state.isAuthorized = true;
                 state.isAuthChecked = true;
             })
     }

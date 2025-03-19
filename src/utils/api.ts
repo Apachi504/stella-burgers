@@ -104,7 +104,6 @@ export const getOrderApi = async (order: string[]): Promise<TOrderResponse> => {
         } as HeadersInit,
         body: JSON.stringify({ingredients: order}),
     });
-    // @ts-ignore
     if (data?.success) return data as TOrderResponse;
     return Promise.reject(data);
 }

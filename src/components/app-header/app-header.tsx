@@ -2,7 +2,7 @@ import {Logo, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-devel
 import styles from "./app-header.module.scss";
 import {NavLink} from "react-router-dom";
 import React, {FC} from "react";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/store";
 import {getUserSelector} from "../../services/user/user-slice";
 
 type TUser = {
@@ -50,7 +50,9 @@ export const AppHeader: FC = ()=> {
                         </ul>
                     </div>
                     <div className={styles.navbar__center}>
-                        <Logo/>
+                        <NavLink to='/' className={styles.navbar__link}>
+                            <Logo/>
+                        </NavLink>
                     </div>
                     <div className={styles.navbar__right}>
                         <NavLink to='/profile'>

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, {memo, useEffect} from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
     DragIcon,
@@ -45,6 +45,10 @@ const BurgerConstructor = () => {
         }
         openModal();
     }
+    useEffect(() => {
+        console.log('isAuth changed:', isAuth);
+    }, [isAuth]);
+    // console.log(isAuth);
     const [{ isHoveredTop }, topRef] = useDrop({
         accept: "bun",
         collect(monitor) {
