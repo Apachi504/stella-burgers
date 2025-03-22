@@ -2,8 +2,8 @@ import styles from "../login/login.module.scss";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import React, { useRef, useState} from "react";
-import {useDispatch} from "react-redux";
-import {registerUser} from "../../services/user/user-slice.js";
+import {useDispatch} from "../../services/store";
+import {registerUser} from "../../services/user/user-slice";
 
 function Register (){
     const [email, setEmail] = useState('');
@@ -13,7 +13,6 @@ function Register (){
     const dispatch = useDispatch();
     const onClick = (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-        // @ts-ignore
         dispatch(registerUser({email, password, name}))
     }
     return(

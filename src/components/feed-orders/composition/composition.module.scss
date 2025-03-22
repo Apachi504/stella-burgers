@@ -1,0 +1,41 @@
+.composition{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-right: 24px;
+  &__line{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+  &__item{
+    padding: 3px;
+    border-radius: 50%;
+    background: linear-gradient(68deg, rgb(128, 26, 178) 10%, rgb(76, 76, 255));
+    display: inline-block;
+    position: relative;
+  }
+  &__img{
+    display: block;
+    background: #1c1c21;
+    border-radius: 100px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+  }
+  &__text{
+    composes: text text_type_main-default from global;
+    max-width: 320px;
+  }
+}
+.price{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &__total{
+    composes: text text_type_digits-default mr-2 from global;
+  }
+}

@@ -1,15 +1,15 @@
 import React, {FC, ReactNode} from 'react'
 import PropTypes from 'prop-types'
-import { createPortal } from 'react-dom'
+import {createPortal} from 'react-dom'
 import styles from './modal.module.scss'
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/modal-overlay.js'
 import {TModal} from "./type";
 
 
 const modal = document.getElementById('modals');
 
-const Modal: FC<TModal> = ({ children, title, onClose }) => {
+const Modal: FC<TModal> = ({children, title, orderNumber, onClose}) => {
     React.useEffect(() => {
         const closeByEsc = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
@@ -24,20 +24,26 @@ const Modal: FC<TModal> = ({ children, title, onClose }) => {
 
     return createPortal(
         <>
-        <ModalOverlay onClick={onClose} />
-        <div className={styles.modal}>
-        <header className={styles.header}>
-            <h2 className="text text_type_main-large">
-                {title}
-            </h2>
-            <button>
-                <CloseIcon type="primary" onClick={onClose} />
-            </button>
-        </header>
-            <div className={styles.content}>
-            {children}
+            <ModalOverlay onClick={onClose}/>
+            <div className={styles.modal}>
+                <header className={styles.header}>
+                    {title !== null && title !== undefined ? (
+                        <h2 className="text text_type_main-large">
+                            {title}
+                        </h2>
+                    ) : orderNumber ? (
+                            <p className="text text_type_digits-default">{`#${orderNumber}`}</p>
+                        ) :(
+                            <p></p>
+                    )}
+                    <button>
+                        <CloseIcon type="primary" onClick={onClose}/>
+                    </button>
+                </header>
+                <div className={styles.content}>
+                    {children}
+                </div>
             </div>
-        </div>
         </>,
         modal as HTMLElement
     )

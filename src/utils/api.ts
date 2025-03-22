@@ -1,14 +1,57 @@
 import {checkResponse} from "./getResponse";
 import {BASE_URL} from "./constant.js";
-import {TIngredient} from "./prop-types";
+import {TIngredient, TOrder} from "./types/prop-types";
 
 type TResponse = {
     success: boolean;
     accessToken?: string;
     refreshToken?: string;
 };
+type TServerResponse<T> = {
+    success: boolean;
+} & T;
 
-export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Promise<TResponse> {
+type TRefreshResponse = TServerResponse<{
+    refreshToken: string;
+    accessToken: string;
+}>;
+
+// export async function refreshRequest(): Promise<TResponse> {
+//     const response = await fetch(`${BASE_URL}/auth/token`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//             token: localStorage.getItem('refreshToken'),
+//         }),
+//     });
+//     const data = await response.json();
+//     if (data.success) {
+//         localStorage.setItem('accessToken', data.accessToken);
+//         localStorage.setItem('refreshToken', data.refreshToken);
+//     }
+//     return data;
+// }
+//
+// export async function fetchWithRefresh<T>(url: RequestInfo, options: RequestInit) {
+//     try {
+//         const res = await fetch(url, options);
+//         return await checkResponse<T>(res);
+//     } catch (err) {
+//         if ((err as Error).message === 'jwt expired') {
+//             const refreshData = await refreshRequest();
+//             if (!refreshData.success) return Promise.reject(refreshData);
+//             if (refreshData.accessToken != null) {
+//                 (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
+//             }
+//             const res = await fetch(url, options);
+//             return await checkResponse<T>(res);
+//         }
+//         return Promise.reject(err);
+//     }
+// }
+ export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Promise<TResponse> {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
@@ -34,17 +77,26 @@ export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Pr
         return Promise.reject(err);
     }
 }
-
+type TIngredients ={
+    success: boolean;
+    data:TIngredient[];
+};
 export const getBurgerIngredients = () =>
     fetch(`${BASE_URL}/ingredients`)
-        .then((res) => checkResponse<TIngredient>(res))
+        .then((res) => checkResponse<TIngredients>(res))
         .then((data) => {
-            if (data?.success) return data;
+            if (data?.success) return data.data;
             return Promise.reject(data);
         });
+type TOrderResponse = TServerResponse<{
+    name: string;
+    order: TOrder;
+    accessToken?: string;
+    refreshToken?: string;
+}>;
 
-export const postDataIngredients = async (order:string[]) => {
-    return await fetchWithRefresh(`${BASE_URL}/orders`, {
+export const getOrderApi = async (order: string[]): Promise<TOrderResponse> => {
+    const data = await fetchWithRefresh(`${BASE_URL}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -52,12 +104,24 @@ export const postDataIngredients = async (order:string[]) => {
         } as HeadersInit,
         body: JSON.stringify({ingredients: order}),
     });
+    if (data?.success) return data as TOrderResponse;
+    return Promise.reject(data);
 }
 type TRegisterUser = {
     email:string,
     password?:string,
-    name?:string
+    name?:string,
+    accessToken?:string
 }
+type TAuthUserResponse = TServerResponse<{
+    accessToken: string;
+    refreshToken: string;
+    user: {
+        email: string;
+        name: string;
+    };
+}>;
+
 export const registerUserApi = ({email, password, name} : TRegisterUser) =>
     fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
@@ -69,7 +133,7 @@ export const registerUserApi = ({email, password, name} : TRegisterUser) =>
             password: password,
             name: name
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TAuthUserResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);
@@ -84,7 +148,7 @@ export const forgotPasswordApi = ({email}:TRegisterUser) =>
         body: JSON.stringify({
             email: email
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TRefreshResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);
@@ -104,11 +168,12 @@ export const resetPasswordApi = ({password, token}: TResetPassword) =>
             password: password,
             token: token
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TRefreshResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);
         })
+
 export const loginUserApi = ({email, password}: TRegisterUser) =>
     fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
@@ -119,7 +184,7 @@ export const loginUserApi = ({email, password}: TRegisterUser) =>
             email: email,
             password: password
         }),
-    }).then((res) => checkResponse<TResponse>(res))
+    }).then((res) => checkResponse<TAuthUserResponse>(res))
         .then((data) => {
             if (data?.success) return data;
             return Promise.reject(data);

@@ -1,14 +1,12 @@
 import React, {FormEvent, SyntheticEvent, useEffect, useRef, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {getUser, getUserSelector, refactoringUser} from "../../services/user/user-slice.js";
+import {useDispatch, useSelector} from "../../services/store";
+import {getUser, getUserSelector, refactoringUser} from "../../services/user/user-slice";
 import Loader from "../../components/loader/loader";
 
 function ProfileEdit() {
-    // @ts-ignore
     const {user} = useSelector(getUserSelector);
-    const accessToken = localStorage.getItem('accessToken');
     const dispatch = useDispatch();
     const [formValue, setFormValue] = useState({
         name:user?.name || '',
@@ -19,7 +17,6 @@ function ProfileEdit() {
         undefined
     );
     useEffect(() => {
-        // @ts-ignore
         dispatch(getUser());
     }, [dispatch]);
 
@@ -41,12 +38,10 @@ function ProfileEdit() {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (isFormChanged) {
-            // @ts-ignore
             dispatch(refactoringUser({
                 name: formValue.name,
                 email: formValue.email,
                 password: formValue.password,
-                accessToken
             }))
                 .unwrap()
                 .then(() => {
@@ -78,8 +73,8 @@ function ProfileEdit() {
     }
     return (
         <>
-            <main>
-                <form onSubmit={handleSubmit}>
+            <main className={styles.main}>
+                <form onSubmit={handleSubmit} className={styles.form}>
                     <div>
                         <Input
                             type={'text'}

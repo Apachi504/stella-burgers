@@ -2,8 +2,8 @@ import {Logo, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-devel
 import styles from "./app-header.module.scss";
 import {NavLink} from "react-router-dom";
 import React, {FC} from "react";
-import {useSelector} from "react-redux";
-import {getUserSelector} from "../../services/user/user-slice.js";
+import {useSelector} from "../../services/store";
+import {getUserSelector} from "../../services/user/user-slice";
 
 type TUser = {
     user: {
@@ -12,7 +12,6 @@ type TUser = {
 }
 
 export const AppHeader: FC = ()=> {
-    // @ts-ignore
     const user: TUser = useSelector(getUserSelector);
     return (
         <header className={styles.header}>
@@ -37,13 +36,13 @@ export const AppHeader: FC = ()=> {
                                 {({isActive}) => (isActive ?
                                         <li className={styles.navbar__items}>
                                             <ListIcon type="primary"/>
-                                            <p className={`${styles.navbar__link} ${styles.active} ml-2`}>Лист
+                                            <p className={`${styles.navbar__link} ${styles.active} ml-2`}>Лента
                                                 заказов</p>
                                         </li>
                                         :
                                         <li className={styles.navbar__items}>
                                             <ListIcon type="secondary"/>
-                                            <p className={`${styles.navbar__link} ${styles.inactive} ml-2`}>Лист
+                                            <p className={`${styles.navbar__link} ${styles.inactive} ml-2`}>Лента
                                                 заказов</p>
                                         </li>
                                 )}
@@ -51,7 +50,9 @@ export const AppHeader: FC = ()=> {
                         </ul>
                     </div>
                     <div className={styles.navbar__center}>
-                        <Logo/>
+                        <NavLink to='/' className={styles.navbar__link}>
+                            <Logo/>
+                        </NavLink>
                     </div>
                     <div className={styles.navbar__right}>
                         <NavLink to='/profile'>

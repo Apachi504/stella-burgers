@@ -1,7 +1,7 @@
 import React, {FC, memo, useEffect} from "react";
 import styles from "./burger-ingredients.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientGroup from "./ingredient-group/ingredient-group.js";
+import IngredientGroup from "./ingredient-group/ingredient-group";
 import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients: FC = () => {
