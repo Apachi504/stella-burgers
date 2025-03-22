@@ -6,9 +6,7 @@ import {getUser, getUserSelector, refactoringUser} from "../../services/user/use
 import Loader from "../../components/loader/loader";
 
 function ProfileEdit() {
-    // @ts-ignore
     const {user} = useSelector(getUserSelector);
-    const accessToken = localStorage.getItem('accessToken');
     const dispatch = useDispatch();
     const [formValue, setFormValue] = useState({
         name:user?.name || '',
@@ -19,7 +17,6 @@ function ProfileEdit() {
         undefined
     );
     useEffect(() => {
-        // @ts-ignore
         dispatch(getUser());
     }, [dispatch]);
 
@@ -41,12 +38,10 @@ function ProfileEdit() {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (isFormChanged) {
-            // @ts-ignore
             dispatch(refactoringUser({
                 name: formValue.name,
                 email: formValue.email,
                 password: formValue.password,
-                accessToken
             }))
                 .unwrap()
                 .then(() => {

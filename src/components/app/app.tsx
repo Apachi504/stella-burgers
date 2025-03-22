@@ -50,7 +50,6 @@ function App() {
         }
     }
     if (burgerIngredientsError) {
-        // @ts-ignore
         return <div>Error: {burgerIngredientsError}</div>;
     }
     return (

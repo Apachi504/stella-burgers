@@ -110,7 +110,8 @@ export const getOrderApi = async (order: string[]): Promise<TOrderResponse> => {
 type TRegisterUser = {
     email:string,
     password?:string,
-    name?:string
+    name?:string,
+    accessToken?:string
 }
 type TAuthUserResponse = TServerResponse<{
     accessToken: string;

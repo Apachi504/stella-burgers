@@ -2,7 +2,7 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import React, {FormEvent, useRef, useState} from "react";
 import styles from './login.module.scss'
 import {Link,useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/store";
 import {loginUser} from "../../services/user/user-slice";
 function Login () {
     const [email, setEmail] = useState('');
@@ -13,7 +13,6 @@ function Login () {
     const location = useLocation();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(loginUser({email, password}))
             .then(() => {
               const from = location.state?.from?.pathname || '/profile';

@@ -1,7 +1,7 @@
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import styles from "./profile-navigation.module.scss";
 import {logoutUser} from "../../services/user/user-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/store";
 import React from "react";
 
 function ProfileNavigation() {
@@ -10,7 +10,6 @@ function ProfileNavigation() {
     const dispatch = useDispatch();
     const onClickHandel = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        //@ts-ignore
         dispatch(logoutUser())
             .then(() => navigate('/login'))
             .catch((err: string)=>console.log(err));
@@ -26,7 +25,8 @@ function ProfileNavigation() {
                          className={({isActive}) => `${styles.link} ${isActive ? styles.active : styles.inactive}`}>
                     История заказов
                 </NavLink>
-                <button onClick={onClickHandel} className={`${styles.link} ${styles.inactive} ${styles.logout}`}>Выход
+                <button onClick={onClickHandel} className={`${styles.link} ${styles.inactive} ${styles.logout}`}>
+                    Выход
                 </button>
             </ul>
             {

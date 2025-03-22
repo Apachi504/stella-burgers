@@ -58,11 +58,8 @@ export const socketMiddleware = <R, S>(
 
                         try {
                             const parsedData = JSON.parse(data);
-                            //
-                            // console.log(parsedData);
 
                             if (withTokenRefresh && parsedData.message === "Invalid or missing token") {
-                                // @ts-ignore
                                 fetchWithRefresh(`${url}/auth/token`, {
                                     method: 'POST',
                                     headers: {'Content-Type': 'application/json'}
@@ -71,9 +68,7 @@ export const socketMiddleware = <R, S>(
                                         const wssUrl = new URL(url);
                                         wssUrl.searchParams.set(
                                             "token",
-
                                            refreshToken.accessToken = (localStorage.getItem("accessToken") ?? "").replace("Bearer ", "")
-                                            // refreshToken.accessToken.replace("Bearer ", "")
                                         );
                                         dispatch(connect(wssUrl.toString()));
                                     })

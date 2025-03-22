@@ -1,10 +1,8 @@
 import {sortIngredients} from "../../../services/burger-constructor/burger-constructor-slice";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../../services/store";
 import {FC, useRef} from "react";
-import PropTypes from "prop-types";
 import styles from "./draggable-wrapper.module.scss";
-import {TIngredient} from "../../../utils/types/prop-types";
 import {TDraggableWrapper, TDragItem} from "./types";
 
 
