@@ -48,7 +48,6 @@ const BurgerConstructor = () => {
     useEffect(() => {
         console.log('isAuth changed:', isAuth);
     }, [isAuth]);
-    // console.log(isAuth);
     const [{ isHoveredTop }, topRef] = useDrop({
         accept: "bun",
         collect(monitor) {

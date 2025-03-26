@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals';
 import allOrdersReducer, {initialState} from './get-all-orders-slice';
 import {
     wsConnecting,

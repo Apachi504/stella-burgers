@@ -14,5 +14,5 @@ export default defineConfig({
     screenshotOnRunFailure: true,
     defaultCommandTimeout: 10000,
     projectId: 'react-burger',
-    record: false
+
 })
