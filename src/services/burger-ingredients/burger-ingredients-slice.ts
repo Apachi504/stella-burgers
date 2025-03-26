@@ -12,12 +12,12 @@ export const getIngredients = createAsyncThunk<TIngredient[]>(
     }
 );
 
-const initialState:TBurgerIngredientsState = {
+export const initialState:TBurgerIngredientsState = {
     burgerIngredients: [],
     burgerIngredientsLoading: false,
-    burgerIngredientsError: false
+    burgerIngredientsError: null
 }
-export const burgerIngredientsSlice = createSlice({
+const burgerIngredientsSlice = createSlice({
     name: 'burgerIngredients',
     initialState,
     reducers: {},
@@ -32,17 +32,17 @@ export const burgerIngredientsSlice = createSlice({
             getIngredients.fulfilled, (state, action: PayloadAction<TIngredient[]>) => {
                 state.burgerIngredients = action.payload;
                 state.burgerIngredientsLoading = false;
-                state.burgerIngredientsError = false;
+                state.burgerIngredientsError = null;
             }
         )
             .addCase(getIngredients.pending, (state) => {
                 state.burgerIngredientsLoading = true;
-                state.burgerIngredientsError = false;
+                state.burgerIngredientsError = null;
             })
             .addCase(
-            getIngredients.rejected, (state) => {
+            getIngredients.rejected, (state, action) => {
                 state.burgerIngredientsLoading = false;
-                state.burgerIngredientsError = true;
+                state.burgerIngredientsError = action.error.message || 'Произошла ошибка';
             }
         )
 }

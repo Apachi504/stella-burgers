@@ -14,42 +14,14 @@ export const getOrders = createAsyncThunk<TOrder,TIngredients>(
         return response.order;
     }
 );
-// export const getOrders = createAsyncThunk<TOrder, TIngredients>(
-//     'order/getOrders',
-//     async ({ ingredients, bun }, { dispatch, thunkAPI }) => {
-//
-//         if (!ingredients || !Array.isArray(ingredients)) {
-//             return thunkAPI.rejectWithValue('Некорректные данные для ингредиентов');
-//         }
-//         if (!bun || !bun._id) {
-//             return thunkAPI.rejectWithValue('Некорректные данные для булки');
-//         }
-//
-//         try {
-//             const order = [bun._id, ...ingredients.map((item) => item._id), bun._id];
-//             const response =  await postDataIngredients(order);
-//             if (!response.success) {
-//                 throw new Error(response.message || 'Ошибка при создании заказа');
-//             }
-//             if (!response.order) {
-//                 throw new Error('Ответ сервера не содержит данных о заказе');
-//             }
-//             dispatch(resetConstructor());
-//             return response.order;
-//         } catch (error) {
-//             console.error('Error creating order:', error); // Логируем ошибку
-//             return thunkAPI.rejectWithValue(error.message || 'Произошла ошибка');
-//         }
-//     }
-// );
-// Начальное состояние
-const initialState:TOrderState = {
-    orders: null, // Данные заказа
-    ordersLoading: false, // Флаг загрузки
-    ordersError: false, // Сообщение об ошибке
+
+ export const initialState:TOrderState = {
+    orders: null,
+    ordersLoading: false,
+    ordersError: null,
+
 };
 
-// Создание слайса
 const orderSlice = createSlice({
     name: 'order',
     initialState,
@@ -63,16 +35,16 @@ const orderSlice = createSlice({
         builder
             .addCase(getOrders.pending, (state) => {
                 state.ordersLoading = true;
-                state.ordersError = false; // Сбрасываем ошибку при начале загрузки
+                state.ordersError = null; // Сбрасываем ошибку при начале загрузки
             })
             .addCase(getOrders.fulfilled, (state, action: PayloadAction<TOrder>) => {
-                state.ordersError = false; // Сбрасываем ошибку при успешном выполнении
+                state.ordersError = null; // Сбрасываем ошибку при успешном выполнении
                 state.ordersLoading = false;
                 state.orders = action.payload; // Сохраняем данные заказа
             })
-            .addCase(getOrders.rejected, (state) => {
+            .addCase(getOrders.rejected, (state,action) => {
                 state.ordersLoading = false;
-                state.ordersError = false; // Сохраняем сообщение об ошибке
+                state.ordersError = action.error.message || 'Произошла ошибка'; // Сохраняем сообщение об ошибке
             });
     }
 });

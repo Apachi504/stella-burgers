@@ -3,7 +3,7 @@ import {v6} from 'uuid';
 import {TBurgerConstructor} from "./types";
 import {TConstructor, TIngredient} from "../../utils/types/prop-types";
 
-const initialState: TBurgerConstructor = {
+export const initialState: TBurgerConstructor = {
     bun: null,
     ingredients: []
 }

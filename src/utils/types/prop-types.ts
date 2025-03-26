@@ -23,3 +23,7 @@ export type TOrder = {
     number: number;
     ingredients: string[];
 }
+export type TUser={
+    email: string;
+    name: string;
+}
