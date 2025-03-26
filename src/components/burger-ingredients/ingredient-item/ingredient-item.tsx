@@ -33,8 +33,12 @@ const IngredientItem: FC<TIngredientProps> = ({ingredient}) => {
     return (
         <Link
             state={{backgroundLocation: location, ingredient: ingredient}}
-            to={`ingredients/${id}`} className={styles.link}>
-            <li className={styles.item} onClick={modal} ref={dragRef}>
+            to={`ingredients/${id}`} className={styles.link} >
+            <span className={styles.item} onClick={modal} ref={dragRef} data-testid={
+                ingredient.type === 'bun'
+                    ? 'ingredient-bun'
+                    : `ingredient-${ingredient.type}`
+            }>
         <span className={styles.img}>
           <img src={ingredient.image} alt={ingredient.name}/>
             {count > 0 && <Counter count={count} size="default" extraClass="m-1"/>}
@@ -44,7 +48,7 @@ const IngredientItem: FC<TIngredientProps> = ({ingredient}) => {
           <CurrencyIcon type="primary"/>
         </span>
                 <p className={styles.name}>{ingredient.name}</p>
-            </li>
+            </span>
         </Link>
     );
 };

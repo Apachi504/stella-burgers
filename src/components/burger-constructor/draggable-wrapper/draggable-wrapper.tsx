@@ -51,6 +51,7 @@ export const DraggableWrapper: FC<TDraggableWrapper> = ({children, id, index}) =
     drag(drop(ref));
     return (
         <li
+            
             className={styles.content}
             style={{ opacity: opacity }}
             ref={ref}

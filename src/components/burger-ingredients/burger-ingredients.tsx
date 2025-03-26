@@ -71,6 +71,7 @@ const BurgerIngredients: FC = () => {
                         type={"sauce"}
                         id={"sauces"}
                         ref={refSauces}
+
                     />
                 </div>
             </div>
