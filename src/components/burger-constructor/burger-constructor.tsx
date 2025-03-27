@@ -35,19 +35,17 @@ const BurgerConstructor = () => {
 
     const onCreateOrder = () => {
             if (burger.bun && burger.ingredients.length > 0) {
-                if(isAuth){
-                   navigate('/login' , { state: {from: location}});
-                }else {
+                if(!isAuth){
                     dispatch(
                         getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
                     )
+                } else {
+                    navigate('/login' , { state: {from: location}});
                 }
             }
             openModal();
         }
-    useEffect(() => {
-        console.log('isAuth changed:', isAuth);
-    }, [isAuth]);
+
     const [{ isHoveredTop }, topRef] = useDrop({
         accept: "bun",
         collect(monitor) {

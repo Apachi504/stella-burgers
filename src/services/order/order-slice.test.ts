@@ -31,7 +31,7 @@ describe('orderSlice', () => {
             ...initialState,
             orders: mockOrder,
             ordersLoading: false,
-            ordersError: false
+            ordersError: null
         });
     });
     it('должен обработать getOrders.rejected', () => {

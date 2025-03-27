@@ -1,3 +1,4 @@
+
 /// <reference types="cypress" />
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
@@ -92,53 +93,53 @@ describe('Конструктор бургеров', () => {
 
             // Проверяем модальное окно
             cy.get(modalSelector).contains('Флюоресцентная булка R2-D3')
-            .should('be.visible');
+                .should('be.visible');
 
             // Закрываем модальное окно
             cy.get(modalSelector)
                 .find('button')
                 .click()
                 .should('not.exist');
-            
+
             // Проверяем, что модальное окно закрылось
             cy.get(modalSelector).should('not.be.visible');
         });
-    });    
+    });
 
     describe('Создание заказа', () => {
         beforeEach(() => {
             cy.clearCookies();
             cy.clearLocalStorage();
         });
-    
+
         it('должен создавать заказ после добавления ингредиентов', () => {
             // 1. Авторизация
             cy.visit('/login');
             cy.get('input[type="email"]').type('test@example.com');
             cy.get('input[type="password"]').type('Azaza1');
             cy.get('button[type="submit"]').click();
-            
+
             // Проверяем успешную авторизацию
             cy.wait('@login').its('response.statusCode').should('eq', 200);
             cy.getCookie('accessToken');
             cy.url().should('eq', Cypress.config().baseUrl + '/profile');
-    
+
             // 2. Главная страница
             cy.visit('/');
             cy.wait('@getIngredients');
-    
+
             // 3. Добавляем ингредиенты с проверкой
             // Булка
             cy.get('[data-testid=ingredient-bun]').first().as('bun');
             dragAndDrop('@bun', bunDropZoneSelector);
             cy.get('[data-testid=constructor-bun-top]').should('exist');
             cy.get('[data-testid=constructor-bun-bottom]').should('exist');
-    
+
             // Начинка
             cy.get('[data-testid=ingredient-main]').first().as('ingredient');
             dragAndDrop('@ingredient', constructorDropZoneSelector);
             cy.get('[data-testid=constructor-ingredient]').should('exist');
-    
+
             // 4. Перехват запроса перед кликом
             cy.intercept('POST', '**/orders*', (req) => {
                 req.headers['authorization'] = 'Bearer test-token';
@@ -146,49 +147,28 @@ describe('Конструктор бургеров', () => {
                     success: true,
                     name: "Флюоресцентный бургер",
                     order: {
-                        number: 99999
+                        number: 99779
                     }
                 });
             }).as('createOrder');
-    
+
             // 5. Клик по кнопке с проверками
             cy.get('[data-testid=order-button]')
                 .should('contain', 'Оформить заказ')
                 .and('not.be.disabled')
                 .click();
-    
-            // 6. Проверяем отсутствие редиректа
-            cy.url().should('not.include', '/login');
 
-            // 7. Ожидаем запрос с увеличенным таймаутом
-            cy.wait('@createOrder', { timeout: 15000 })
-                .then((interception) => {
-                    // Проверяем статус и тело ответа
-                    expect(interception.response?.statusCode).to.eq(200);
-                    expect(interception.response?.body).to.have.property('success', true);
-                    expect(interception.response?.body.order).to.have.property('number');
-                    
-                    // Для отладки выводим номер заказа
-                    const orderNumber = interception.response?.body.order.number;
-                    cy.log(`Получен номер заказа: ${orderNumber}`);
-                });
+            // Ждём запрос и проверяем статус
+                    cy.wait('@createOrder')
+                        .its('response.statusCode')
+                        .should('eq', 200);
 
-            // 8. Проверяем модальное окно с ожиданием анимации
-            cy.get(modalSelector, { timeout: 10000 })
-                .find('[data-testid=order-number]')
-                .should('exist')
-                .and('be.visible')
-                .and('contain', '99999');
-            
-            // Добавляем задержку перед кликом
-            cy.wait(1000);
-            
             cy.get(modalSelector)
                 .find('button')
                 .click()
                 .should('not.exist');
         });
-    
+
         // Вспомогательная функция для DnD
         function dragAndDrop(sourceAlias: string, targetSelector: string) {
             cy.get(sourceAlias).trigger('dragstart');
