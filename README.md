@@ -85,6 +85,6 @@ src/
 - Jest для unit-тестирования
 - Cypress для E2E тестирования
 
-## Лицензия
+## Ссылка на github page
 
-MIT
+https://apachi504.github.io/stella-burgers/
