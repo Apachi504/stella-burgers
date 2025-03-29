@@ -36,7 +36,7 @@ const Modal: FC<TModal> = ({children, title, orderNumber, onClose}) => {
                         ) :(
                             <p></p>
                     )}
-                    <button>
+                    <button type="button">
                         <CloseIcon type="primary" onClick={onClose}/>
                     </button>
                 </header>

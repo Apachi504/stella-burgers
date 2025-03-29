@@ -14,7 +14,9 @@
     "resolveJsonModule": true, // Разрешаем импорт JSON
     "isolatedModules": true, // Убеждаемся, что каждый файл — независимый модуль
     "noEmit": true, // Отключаем генерацию файлов (Vite сам занимается сборкой)
-    "jsx": "react-jsx" // Используем JSX для React
+    "jsx": "react-jsx", // Используем JSX для React
+    "types": ["cypress"]
+
   },
   "include": ["src"], // Указываем, где искать файлы TypeScript
   "exclude": ["node_modules"] // Исключаем папку node_modules

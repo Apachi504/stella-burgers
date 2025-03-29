@@ -7,6 +7,7 @@ import {
     registerUserApi,
     resetPasswordApi
 } from "../../utils/api";
+import {TUser} from "../../utils/types/prop-types";
 
 
 export const checkAuthUser = createAsyncThunk(
@@ -49,7 +50,7 @@ type TInitialState = {
     error: string | null,
     isAuthorized: boolean
 }
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     user: null,
     isAuthChecked: false,
     isLoading: false,
@@ -99,7 +100,7 @@ const userSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.user = action.payload.user;
+                state.user = action.payload;
                 state.isAuthorized = true;
                 localStorage.setItem('accessToken', action.payload.accessToken);
                 localStorage.setItem('refreshToken', action.payload.refreshToken);

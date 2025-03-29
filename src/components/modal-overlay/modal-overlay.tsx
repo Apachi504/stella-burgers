@@ -4,7 +4,7 @@ import {TModalOverlay} from "./type";
 
 const ModalOverlay: FC<TModalOverlay> = ({onClick}) => {
     return (
-        <div className={styles.overlay} onClick={onClick}/>
+        <div className={styles.overlay} onClick={onClick} data-testid="modal-close"/>
     )
 }
 

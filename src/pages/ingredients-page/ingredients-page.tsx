@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import React, { useMemo} from "react";
-import IngredientDetails from "../../components/burger-ingredients/ingredient-details/ingredient-details";
+import IngredientDetails from '../../components/burger-ingredients/ingredient-details/ingredient-details';
 import {useSelector} from "../../services/store";
 import {getAllIngredients} from "../../services/burger-ingredients/burger-ingredients-slice.js";
 import styles from "./ingredients-page.module.scss";

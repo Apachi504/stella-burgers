@@ -1,5 +1,5 @@
 import {checkResponse} from "./getResponse";
-import {BASE_URL} from "./constant.js";
+import {BASE_URL} from "./constant";
 import {TIngredient, TOrder} from "./types/prop-types";
 
 type TResponse = {
@@ -16,41 +16,6 @@ type TRefreshResponse = TServerResponse<{
     accessToken: string;
 }>;
 
-// export async function refreshRequest(): Promise<TResponse> {
-//     const response = await fetch(`${BASE_URL}/auth/token`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             token: localStorage.getItem('refreshToken'),
-//         }),
-//     });
-//     const data = await response.json();
-//     if (data.success) {
-//         localStorage.setItem('accessToken', data.accessToken);
-//         localStorage.setItem('refreshToken', data.refreshToken);
-//     }
-//     return data;
-// }
-//
-// export async function fetchWithRefresh<T>(url: RequestInfo, options: RequestInit) {
-//     try {
-//         const res = await fetch(url, options);
-//         return await checkResponse<T>(res);
-//     } catch (err) {
-//         if ((err as Error).message === 'jwt expired') {
-//             const refreshData = await refreshRequest();
-//             if (!refreshData.success) return Promise.reject(refreshData);
-//             if (refreshData.accessToken != null) {
-//                 (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
-//             }
-//             const res = await fetch(url, options);
-//             return await checkResponse<T>(res);
-//         }
-//         return Promise.reject(err);
-//     }
-// }
  export async function fetchWithRefresh(url:RequestInfo, options:RequestInit): Promise<TResponse> {
     try {
         const res = await fetch(url, options);

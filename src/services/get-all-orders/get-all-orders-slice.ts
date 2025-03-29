@@ -8,7 +8,7 @@ export type TAllOrdersState = {
     error: string | null;
 }
 
-const initialState:TAllOrdersState = {
+export const initialState:TAllOrdersState = {
     status: WebsocketStatus.OFFLINE,
     order: null,
     error: null

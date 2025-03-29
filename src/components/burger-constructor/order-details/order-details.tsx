@@ -10,7 +10,7 @@ import {getOrderNumber} from "../../../services/order/order-slice";
   return (
       <>
         <div className={styles.constructor__container}>
-          <span className={styles.constructor__namber}>
+          <span className={styles.constructor__namber} data-testid="order-number">
            {orderNumber}
             </span>
           <span className={styles.constructor__title}>

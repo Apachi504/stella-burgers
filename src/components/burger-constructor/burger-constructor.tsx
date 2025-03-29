@@ -35,20 +35,17 @@ const BurgerConstructor = () => {
 
     const onCreateOrder = () => {
             if (burger.bun && burger.ingredients.length > 0) {
-                if(isAuth){
+                if(!isAuth){
                     dispatch(
-                    getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
-                )
-            }else {
+                        getOrders({ ingredients: burger.ingredients, bun: burger.bun }),
+                    )
+                } else {
                     navigate('/login' , { state: {from: location}});
                 }
+            }
+            openModal();
         }
-        openModal();
-    }
-    useEffect(() => {
-        console.log('isAuth changed:', isAuth);
-    }, [isAuth]);
-    // console.log(isAuth);
+
     const [{ isHoveredTop }, topRef] = useDrop({
         accept: "bun",
         collect(monitor) {
@@ -94,8 +91,9 @@ const BurgerConstructor = () => {
     return (
         <div className={styles.container}>
             <ul>
-                <li ref={topRef}>
+                <li ref={topRef} data-testid="bun-dropzone">
                     {burger.bun ? (
+                        <div data-testid="constructor-bun-top">
                         <ConstructorElement
                             type="top"
                             extraClass={"ml-8"}
@@ -103,32 +101,37 @@ const BurgerConstructor = () => {
                             text={`${burger.bun.name} (верх)`}
                             price={burger.bun.price}
                             thumbnail={burger.bun.image}
+                            data-testid="constructor-bun-top"
                         />
+                        </div>
                     ) : (
                         <p
                             className={`${styles.wrapper} ${styles.top}`}
                             style={{boxShadow: boxShadowBun}}
+                            
                         >
                             Выберите булку
                         </p>
                     )}
                 </li>
-                <li ref={centerRef}>
+                <li ref={centerRef} >
                     {burger.ingredients.length ? (
                         <span className={styles.content}>
               <ul className={styles.group}>
                 {burger.ingredients.map((el, index) => {
                     return (
-                        <DraggableWrapper key={el.id} index={index} id={el._id}>
+                        <DraggableWrapper key={el.id} index={index} id={el._id} data-testid="constructor-dropzone">
                             <DragIcon type="primary" />
-                            <ConstructorElement
-                                extraClass={ "width:100%"}
-                                key={index}
-                                text={el.name}
-                                price={el.price}
-                                thumbnail={el.image}
-                                handleClose={() => dispatch(removeIngredient(el.id))}
-                            />
+                            <div data-testid="constructor-ingredient">
+                                <ConstructorElement
+                                    extraClass={ "width:100%"}
+                                    key={index}
+                                    text={el.name}
+                                    price={el.price}
+                                    thumbnail={el.image}
+                                    handleClose={() => dispatch(removeIngredient(el.id))}
+                                />
+                            </div>
                         </DraggableWrapper>
                     );
                 })}
@@ -138,6 +141,8 @@ const BurgerConstructor = () => {
                         <p
                             className={`${styles.wrapper} ${styles.center}`}
                             style={{ boxShadow: boxShadowStuffing }}
+                            data-testid="constructor-dropzone"
+
                         >
                             Выберите ингредиенты
                         </p>
@@ -145,6 +150,7 @@ const BurgerConstructor = () => {
                 </li>
                 <li ref={bottomRef}>
                     {burger.bun ? (
+                        <div data-testid="constructor-bun-bottom">
                         <ConstructorElement
                             type="bottom"
                             extraClass={" ml-8"}
@@ -153,10 +159,12 @@ const BurgerConstructor = () => {
                             price={burger.bun.price}
                             thumbnail={burger.bun.image}
                         />
+                        </div>
                     ) : (
                         <p
                             className={`${styles.wrapper} ${styles.bottom}`}
                             style={{ boxShadow: boxShadowBun }}
+                            data-testid="constructor-bun-bottom"
                         >
                             Выберите булку
                         </p>
@@ -168,7 +176,8 @@ const BurgerConstructor = () => {
                     <p className={styles.total__price}>{totalPrice}</p>
                     <CurrencyIcon type="primary" className={styles.icon} />
                 </div>
-                <Button
+                <div data-testid="order-button">
+                    <Button
                     htmlType="button"
                     type="primary"
                     size="large"
@@ -176,6 +185,8 @@ const BurgerConstructor = () => {
                 >
                     Оформить заказ
                 </Button>
+                </div>
+
 
             </div>
             {   isLoading ?(
